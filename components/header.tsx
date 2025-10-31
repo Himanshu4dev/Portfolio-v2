@@ -72,9 +72,14 @@ export default function Header() {
             Resume
           </button>
 
-          <button className="px-6 py-2 bg-primary/10 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:bg-primary/20 hover:border-primary/50 transition-all duration-300">
-            Let's Talk
-          </button>
+          <a
+            href="https://wa.me/7235933039"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-primary/10 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
+          >
+            Let's Connect
+          </a>
         </div>
 
         {/* Mobile menu toggle */}
@@ -114,12 +119,15 @@ export default function Header() {
                 <Download size={16} />
                 Resume
               </button>
-              <button
+              <a
+                href="https://wa.me/7235933039"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsMenuOpen(false)}
-                className="w-full px-6 py-2 bg-primary/10 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
+                className="w-full text-center px-6 py-2 bg-primary/10 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
               >
-                Let's Talk
-              </button>
+                Let's Connect
+              </a>
             </div>
           </div>
         </div>
