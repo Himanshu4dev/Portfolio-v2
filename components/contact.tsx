@@ -6,11 +6,26 @@ import { useState } from "react"
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const isFormValid = formData.name && formData.email && formData.message
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!isFormValid) return
+
+    setIsSubmitting(true)
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+
     console.log("Form submitted:", formData)
+    setIsSubmitted(true)
     setFormData({ name: "", email: "", message: "" })
+
+    // Reset submitted state after 3 seconds
+    setTimeout(() => setIsSubmitted(false), 3000)
+    setIsSubmitting(false)
   }
 
   return (
@@ -62,9 +77,27 @@ export default function Contact() {
 
           <button
             type="submit"
-            className="w-full px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover-lift glow-hover"
+            disabled={isSubmitting || !isFormValid}
+            className={`w-full px-8 py-4 rounded-lg font-semibold transition-all duration-500 ${
+              isSubmitted
+                ? "bg-accent text-accent-foreground scale-105"
+                : isSubmitting
+                  ? "bg-primary/70 text-primary-foreground scale-95"
+                  : isFormValid
+                    ? "bg-primary text-primary-foreground hover-lift glow-hover"
+                    : "bg-primary/40 text-primary-foreground/60 cursor-not-allowed"
+            }`}
           >
-            Send Message
+            {isSubmitted ? (
+              <span className="flex items-center justify-center gap-2 animate-pulse">✓ Message Sent Successfully!</span>
+            ) : isSubmitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="inline-block w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
+                Sending...
+              </span>
+            ) : (
+              "Send Message"
+            )}
           </button>
         </form>
 
@@ -75,7 +108,7 @@ export default function Contact() {
               <a
                 key={social}
                 href="#"
-                className="text-foreground/60 hover:text-primary transition-colors font-semibold"
+                className="text-foreground/60 hover:text-primary transition-all duration-300 font-semibold hover-lift"
               >
                 {social}
               </a>

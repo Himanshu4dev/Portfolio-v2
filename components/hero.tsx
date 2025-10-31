@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Floating3DText from "./floating-3d-text"
 
 export default function Hero() {
   const textRef = useRef<HTMLDivElement>(null)
@@ -27,18 +28,14 @@ export default function Hero() {
       <div className="hero-orb orb-primary" />
       <div className="hero-orb orb-accent" />
 
-      <div className="max-w-4xl mx-auto text-center relative z-10">
+      <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
         <div className="mb-8 inline-block">
           <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift">
             <span className="text-3xl font-bold text-primary-foreground">HV</span>
           </div>
         </div>
 
-        <h1 ref={textRef} className="text-6xl md:text-7xl lg:text-8xl font-bold font-display mb-6 leading-tight">
-          <span className="text-gradient">Himanshu</span>
-          <br />
-          <span className="text-foreground">Virell</span>
-        </h1>
+        <Floating3DText />
 
         <p className="text-xl md:text-2xl text-foreground/70 mb-8 max-w-2xl mx-auto leading-relaxed">
           Video Editor & Web Developer crafting premium digital experiences with precision and creativity
