@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import Image from "next/image"
 import Floating3DText from "./floating-3d-text"
 
 export default function Hero() {
@@ -30,8 +31,14 @@ export default function Hero() {
 
       <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
         <div className="mb-8 inline-block" data-animate="card">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift shadow-[0_0_40px_rgba(44,44,44,0.3)]">
-            <span className="text-3xl font-black text-primary-foreground">HV</span>
+          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift shadow-[0_0_40px_rgba(44,44,44,0.3)] overflow-hidden p-1">
+            <Image 
+              src="/logo.jpeg" 
+              alt="Logo" 
+              width={112} 
+              height={112} 
+              className="w-full h-full rounded-full object-cover"
+            />
           </div>
         </div>
 
