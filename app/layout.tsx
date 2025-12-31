@@ -22,6 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${spaceGrotesk.variable} ${playfairDisplay.variable} font-body antialiased bg-background text-foreground`}
+        suppressHydrationWarning
       >
         {children}
         <Analytics />
