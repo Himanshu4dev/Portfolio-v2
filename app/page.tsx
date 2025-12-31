@@ -6,8 +6,10 @@ import Skills from "@/components/skills"
 import Projects from "@/components/projects"
 import Contact from "@/components/contact"
 import CursorGlow from "@/components/cursor-glow"
+import { useGsapScrollAnimations } from "@/hooks/useGsapScrollAnimations"
 
 export default function Home() {
+  useGsapScrollAnimations()
   return (
     <main className="relative overflow-hidden">
       <CursorGlow />

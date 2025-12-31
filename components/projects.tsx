@@ -41,21 +41,30 @@ export default function Projects() {
   return (
     <section id="projects" className="py-20 px-6 bg-card/30">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold font-display mb-12 text-gradient">Featured Projects</h2>
+        <h2
+          data-animate="heading"
+          className="text-4xl md:text-5xl font-black font-display mb-12 text-foreground tracking-tight"
+        >
+          Featured Projects
+        </h2>
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project) => (
             <div
               key={project.title}
-              className="bg-card border border-border rounded-lg p-8 hover-lift glow-hover group cursor-pointer"
+              data-animate="card"
+              className="bg-card border border-border rounded-lg p-8 hover-lift glow-hover group cursor-pointer transform transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(44,44,44,0.1)]"
             >
-              <div className="mb-4 inline-block px-3 py-1 bg-primary/20 rounded-full">
-                <span className="text-sm font-semibold text-primary">{project.category}</span>
+              <div className="mb-4 inline-block px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
+                <span className="text-sm font-semibold text-foreground">{project.category}</span>
               </div>
-              <h3 className="text-2xl font-bold font-display mb-3 text-foreground group-hover:text-gradient transition-all">
+              <h3
+                data-animate="heading"
+                className="text-2xl font-black font-display mb-3 text-foreground transition-all"
+              >
                 {project.title}
               </h3>
-              <p className="text-foreground/70 mb-6 leading-relaxed">{project.description}</p>
+              <p className="text-foreground mb-6 leading-relaxed">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span key={tag} className="text-xs px-3 py-1 bg-muted text-muted-foreground rounded-full">
