@@ -45,9 +45,9 @@ export default function Header() {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="#" className="text-2xl font-bold font-display text-gradient hover-lift relative group">
+        <Link href="#" className="text-2xl font-black font-display text-foreground hover-lift relative group">
           HV
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-300" />
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
         </Link>
 
         <div className="hidden md:flex gap-8 items-center">
@@ -55,10 +55,10 @@ export default function Header() {
             <Link
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="text-sm font-medium text-foreground/70 hover:text-primary transition-all duration-300 relative group"
+              className="text-sm font-semibold text-foreground hover:text-primary transition-all duration-300 relative group"
             >
               {item}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-300" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
             </Link>
           ))}
         </div>
@@ -85,7 +85,7 @@ export default function Header() {
         {/* Mobile menu toggle */}
         <button
           aria-label="Toggle menu"
-          className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground/80 hover:text-primary hover:bg-foreground/5 transition"
+          className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-foreground hover:text-primary hover:bg-foreground/5 transition"
           onClick={() => setIsMenuOpen((o) => !o)}
         >
           {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -102,7 +102,7 @@ export default function Header() {
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   onClick={() => setIsMenuOpen(false)}
-                  className="py-2 text-sm font-medium text-foreground/80 hover:text-primary transition"
+                  className="py-2 text-sm font-medium text-foreground hover:text-primary transition"
                 >
                   {item}
                 </Link>

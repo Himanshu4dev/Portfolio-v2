@@ -38,11 +38,33 @@ export default function Floating3DText() {
         }}
         className="text-center"
       >
-        <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold font-display mb-6 leading-tight">
-          <span className="block text-gradient mb-2" style={{ textShadow: "0 0 30px rgba(167, 107, 207, 0.3)" }}>
+        <h1 className="text-6xl md:text-7xl lg:text-8xl font-black font-display mb-6 leading-tight tracking-tight">
+          <span 
+            className="block text-chrome mb-2"
+            style={{
+              background: "linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 25%, #6b6b6b 50%, #8a8a8a 75%, #a0a0a0 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              textShadow: "0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1)",
+              filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+              position: "relative",
+            }}
+          >
             Himanshu
           </span>
-          <span className="block text-foreground" style={{ textShadow: "0 0 30px rgba(233, 127, 23, 0.3)" }}>
+          <span 
+            className="block text-chrome font-black"
+            style={{
+              background: "linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 25%, #6b6b6b 50%, #8a8a8a 75%, #a0a0a0 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              textShadow: "0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1)",
+              filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+              position: "relative",
+            }}
+          >
             Virell
           </span>
         </h1>

@@ -24,28 +24,31 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="hero-background min-h-screen flex items-center justify-center pt-20 px-6 relative">
+    <section className="hero-background min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
       <div className="hero-orb orb-primary" />
       <div className="hero-orb orb-accent" />
 
       <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
-        <div className="mb-8 inline-block">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift">
-            <span className="text-3xl font-bold text-primary-foreground">HV</span>
+        <div className="mb-8 inline-block" data-animate="card">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift shadow-[0_0_40px_rgba(44,44,44,0.3)]">
+            <span className="text-3xl font-black text-primary-foreground">HV</span>
           </div>
         </div>
 
         <Floating3DText />
 
-        <p className="text-xl md:text-2xl text-foreground/70 mb-8 max-w-2xl mx-auto leading-relaxed">
+        <p 
+          data-animate="heading"
+          className="text-xl md:text-2xl text-foreground mb-8 max-w-2xl mx-auto leading-relaxed font-medium"
+        >
           Video Editor & Web Developer crafting premium digital experiences with precision and creativity
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover-lift glow-hover">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center" data-animate="card">
+          <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-bold hover-lift glow-hover transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(44,44,44,0.3)]">
             View My Work
           </button>
-          <button className="px-8 py-4 border border-primary text-primary rounded-lg font-semibold hover-lift hover:bg-primary/10">
+          <button className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-bold hover-lift hover:bg-primary/10 transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(44,44,44,0.2)]">
             Get In Touch
           </button>
         </div>

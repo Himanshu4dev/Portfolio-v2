@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={`${spaceGrotesk.variable} ${playfairDisplay.variable} font-body antialiased bg-background text-foreground`}
       >
