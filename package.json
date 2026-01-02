@@ -71,22 +71,10 @@
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
   }
-}
-{
-  "name": "my-v0-project",
-  "version": "0.1.0",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build"
-  },
-  "dependencies": {
-    "next": "14.x",
-    "react": "18.x",
-    "sharp": "0.33.x"
-  },
-"pnpm": {
-  "onlyBuiltDependencies": [
-    "sharp"
-  ]
 }
