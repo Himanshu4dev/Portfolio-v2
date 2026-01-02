@@ -75,7 +75,7 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
-      "sha"
+      "sharp"
     ]
   }
 }
