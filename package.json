@@ -75,6 +75,9 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "sharp"
+    ],
+    "ignoredBuiltDependencies": [
+      "sharp"
     ]
   }
 }
