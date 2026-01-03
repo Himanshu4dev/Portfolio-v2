@@ -365,7 +365,7 @@ html {
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.6s ease-out;
+  transition: all 0s ease-out;
 }
 
 .reveal.revealed {
