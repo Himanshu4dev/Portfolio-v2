@@ -2,33 +2,14 @@ import { NextResponse } from "next/server"
 import fs from "fs/promises"
 import path from "path"
 
-const DATA_DIR = path.join(process.cwd(), "tmp")
-const DATA_FILE = path.join(DATA_DIR, "testimonials.json")
-
-async function ensureDataFile() {
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true })
-    await fs.access(DATA_FILE)
-  } catch (e) {
-    await fs.writeFile(DATA_FILE, JSON.stringify([]), "utf8")
-  }
-}
+import { readTestimonialsStorage, writeTestimonialsStorage } from '@/lib/storage'
 
 async function readTestimonials() {
-  await ensureDataFile()
-  const txt = await fs.readFile(DATA_FILE, "utf8")
-  try {
-    const data = JSON.parse(txt || "[]")
-    // ensure replies array exists
-    return Array.isArray(data) ? data.map((d: any) => ({ ...d, replies: d.replies || [] })) : []
-  } catch (e) {
-    return []
-  }
+  return await readTestimonialsStorage()
 }
 
 async function writeTestimonials(data: any[]) {
-  await ensureDataFile()
-  await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), "utf8")
+  return await writeTestimonialsStorage(data)
 }
 
 export async function GET() {

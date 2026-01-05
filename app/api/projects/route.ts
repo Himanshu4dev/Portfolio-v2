@@ -2,32 +2,14 @@ import { NextResponse } from "next/server"
 import fs from "fs/promises"
 import path from "path"
 
-const DATA_DIR = path.join(process.cwd(), "tmp")
-const DATA_FILE = path.join(DATA_DIR, "projects.json")
-
-async function ensureDataFile() {
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true })
-    await fs.access(DATA_FILE)
-  } catch (e) {
-    await fs.writeFile(DATA_FILE, JSON.stringify([]), "utf8")
-  }
-}
+import { readProjectsStorage, writeProjectsStorage } from '@/lib/storage'
 
 async function readProjects() {
-  await ensureDataFile()
-  const txt = await fs.readFile(DATA_FILE, "utf8")
-  try {
-    const data = JSON.parse(txt || "[]")
-    return Array.isArray(data) ? data : []
-  } catch (e) {
-    return []
-  }
+  return await readProjectsStorage()
 }
 
 async function writeProjects(data: any[]) {
-  await ensureDataFile()
-  await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2), "utf8")
+  return await writeProjectsStorage(data)
 }
 
 export async function GET() {

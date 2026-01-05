@@ -6,6 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "eslint .",
+    "check-env": "node scripts/check-env.js",
+    "smoke": "node scripts/smoke-test.js",
     "start": "next start"
   },
   "dependencies": {
