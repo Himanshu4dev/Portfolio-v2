@@ -39,35 +39,35 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="py-20 px-6 bg-card/30">
+    <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-card/30">
       <div className="max-w-6xl mx-auto">
         <h2
           data-animate="heading"
-          className="text-4xl md:text-5xl font-black font-display mb-12 text-foreground tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-black font-display mb-8 sm:mb-12 text-foreground tracking-tight"
         >
           Featured Projects
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
           {projects.map((project) => (
             <div
               key={project.title}
               data-animate="card"
-              className="bg-card border border-border rounded-lg p-8 hover-lift glow-hover group cursor-pointer transform transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(44,44,44,0.1)]"
+              className="bg-card border border-border rounded-lg p-6 sm:p-8 group cursor-pointer transform transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(44,44,44,0.1)] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
             >
-              <div className="mb-4 inline-block px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
+              <div className="mb-4 inline-block px-2 sm:px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
                 <span className="text-sm font-semibold text-foreground">{project.category}</span>
               </div>
               <h3
                 data-animate="heading"
-                className="text-2xl font-black font-display mb-3 text-foreground transition-all"
+                className="text-xl sm:text-2xl font-black font-display mb-3 text-foreground transition-all"
               >
                 {project.title}
               </h3>
-              <p className="text-foreground mb-6 leading-relaxed">{project.description}</p>
+              <p className="text-foreground text-sm sm:text-base mb-6 leading-relaxed">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <span key={tag} className="text-xs px-3 py-1 bg-muted text-muted-foreground rounded-full">
+                  <span key={tag} className="text-xs px-2 py-1 bg-muted text-muted-foreground rounded-full">
                     {tag}
                   </span>
                 ))}
@@ -75,6 +75,7 @@ export default function Projects() {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )

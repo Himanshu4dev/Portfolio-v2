@@ -5,6 +5,7 @@ import About from "@/components/about"
 import Skills from "@/components/skills"
 import Projects from "@/components/projects"
 import Contact from "@/components/contact"
+import Testimonials from "@/components/testimonials"
 import CursorGlow from "@/components/cursor-glow"
 import { useGsapScrollAnimations } from "@/hooks/useGsapScrollAnimations"
 
@@ -19,6 +20,7 @@ export default function Home() {
       <Skills />
       <Projects />
       <Contact />
+      <Testimonials />
     </main>
   )
 }

@@ -254,11 +254,11 @@ export default function Header() {
           : ""
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         <Link
           ref={logoRef}
           href="#"
-          className="text-2xl font-black font-display text-foreground relative group cursor-pointer"
+          className="text-xl sm:text-2xl font-black font-display text-foreground relative group cursor-pointer touch-manipulation"
           onMouseEnter={(e) => handleLogoHover(e, true)}
           onMouseLeave={(e) => handleLogoHover(e, false)}
         >

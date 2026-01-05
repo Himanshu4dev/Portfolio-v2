@@ -39,15 +39,15 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6">
+    <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
         <h2
           data-animate="heading"
-          className="text-4xl md:text-5xl font-black font-display mb-4 text-foreground text-center tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-black font-display mb-3 sm:mb-4 text-foreground text-center tracking-tight"
         >
           Let's Create Something Amazing
         </h2>
-        <p className="text-center text-foreground mb-6 text-lg">
+        <p className="text-center text-foreground mb-6 text-base sm:text-lg px-2">
           Have a project in mind? Let's collaborate and bring your vision to life.
         </p>
 
@@ -57,38 +57,38 @@ export default function Contact() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-6" data-animate="card">
+        <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6" data-animate="card">
           <div>
-            <label className="block text-sm font-bold mb-2 text-foreground">Name</label>
+            <label className="block text-sm sm:text-base font-bold mb-2 text-foreground">Name</label>
             <input
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-3 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary/50 transition-all duration-300"
+              className="w-full px-4 py-3 bg-card border border-border rounded-lg text-base text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary/50 transition-all duration-300 min-h-[44px]"
               placeholder="Your name"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-bold mb-2 text-foreground">Email</label>
+            <label className="block text-sm sm:text-base font-bold mb-2 text-foreground">Email</label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-3 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary/50 transition-all duration-300"
+              className="w-full px-4 py-3 bg-card border border-border rounded-lg text-base text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary/50 transition-all duration-300 min-h-[44px]"
               placeholder="your@email.com"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-bold mb-2 text-foreground">Message</label>
+            <label className="block text-sm sm:text-base font-bold mb-2 text-foreground">Message</label>
             <textarea
               value={formData.message}
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full px-4 py-3 bg-card border border-border rounded-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary/50 resize-none transition-all duration-300"
-              rows={5}
+              className="w-full px-4 py-3 bg-card border border-border rounded-lg text-base text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary/50 resize-none transition-all duration-300 min-h-[140px]"
+              rows={6}
               placeholder="Tell me about your project..."
               required
             />
@@ -97,14 +97,14 @@ export default function Contact() {
           <button
             type="submit"
             disabled={isSubmitting || !isFormValid}
-            className={`w-full px-8 py-4 rounded-lg font-black transition-all duration-500 ${
+            className={`w-full px-8 py-4 rounded-lg font-black text-base sm:text-lg transition-all duration-500 bg-primary text-primary-foreground hover-lift glow-hover hover:scale-105 hover:shadow-[0_0_30px_rgba(44,44,44,0.3)] touch-manipulation active:scale-95 min-h-[52px] flex items-center justify-center ${
               isSubmitted
-                ? "bg-accent text-accent-foreground scale-105 shadow-[0_0_30px_rgba(74,74,74,0.3)]"
+                ? "scale-105 shadow-[0_0_30px_rgba(74,74,74,0.3)]"
                 : isSubmitting
-                  ? "bg-primary/70 text-primary-foreground scale-95"
-                  : isFormValid
-                    ? "bg-primary text-primary-foreground hover-lift glow-hover hover:scale-105 hover:shadow-[0_0_30px_rgba(44,44,44,0.3)]"
-                    : "bg-primary/40 text-primary-foreground/60 cursor-not-allowed"
+                  ? "bg-primary/70 scale-95"
+                  : !isFormValid
+                    ? "bg-primary/40 text-primary-foreground/60 cursor-not-allowed"
+                    : ""
             }`}
           >
             {isSubmitted ? (
@@ -120,14 +120,14 @@ export default function Contact() {
           </button>
         </form>
 
-        <div className="mt-16 pt-12 border-t border-border text-center">
-          <p className="text-foreground mb-6">Connect with me on social media</p>
-          <div className="flex justify-center gap-6">
+        <div className="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-border text-center">
+          <p className="text-foreground mb-4 sm:mb-6 text-sm sm:text-base">Connect with me on social media</p>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {["GitHub", "LinkedIn", "Twitter", "Instagram"].map((social) => (
               <a
                 key={social}
                 href="#"
-                className="text-foreground hover:text-primary transition-all duration-300 font-semibold hover-lift"
+                className="text-sm sm:text-base text-foreground hover:text-primary transition-all duration-300 font-semibold hover-lift touch-manipulation py-1 px-2"
               >
                 {social}
               </a>

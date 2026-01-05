@@ -1,12 +1,14 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Floating3DText() {
   const containerRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [rotation, setRotation] = useState({ x: 0, y: 0 })
+  const router = useRouter()
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -27,8 +29,18 @@ export default function Floating3DText() {
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
+  const goToWork = () => router.push('/work')
+
   return (
-    <div ref={containerRef} className="relative w-full h-full min-h-96 flex items-center justify-center perspective">
+    <div
+      ref={containerRef}
+      onClick={goToWork}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToWork() } }}
+      role="button"
+      tabIndex={0}
+      title="View my work"
+      className="relative w-full h-full min-h-96 flex items-center justify-center perspective cursor-pointer"
+    >
       <div
         ref={textRef}
         style={{

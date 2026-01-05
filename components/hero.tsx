@@ -25,13 +25,13 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="hero-background min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
+    <section className="hero-background min-h-screen flex items-center justify-center pt-24 sm:pt-28 md:pt-32 px-4 sm:px-6 relative overflow-hidden">
       <div className="hero-orb orb-primary" />
       <div className="hero-orb orb-accent" />
 
       <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
-        <div className="mb-8 inline-block" data-animate="card">
-          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift shadow-[0_0_40px_rgba(44,44,44,0.3)] overflow-hidden p-1">
+        <div className="mb-8 sm:mb-10 inline-block" data-animate="card">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift shadow-[0_0_40px_rgba(44,44,44,0.3)] overflow-hidden p-1">
             <Image 
               src="/logo.jpeg" 
               alt="Logo" 
@@ -46,16 +46,16 @@ export default function Hero() {
 
         <p 
           data-animate="heading"
-          className="text-xl md:text-2xl text-foreground mb-8 max-w-2xl mx-auto leading-relaxed font-medium"
+          className="text-lg sm:text-xl md:text-2xl text-foreground mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed font-medium px-2"
         >
           Video Editor & Web Developer crafting premium digital experiences with precision and creativity
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center" data-animate="card">
-          <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-bold hover-lift glow-hover transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(44,44,44,0.3)]">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center px-4" data-animate="card">
+          <a href="/work" className="px-8 py-4 btn-primary font-bold text-base sm:text-lg touch-manipulation w-full sm:w-auto text-center min-h-[52px] flex items-center justify-center">
             View My Work
-          </button>
-          <button className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-bold hover-lift hover:bg-primary/10 transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(44,44,44,0.2)]">
+          </a>
+          <button className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-bold hover-lift hover:bg-primary/10 transform transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(44,44,44,0.2)] text-base sm:text-lg touch-manipulation w-full sm:w-auto active:scale-95 min-h-[52px] flex items-center justify-center">
             Get In Touch
           </button>
         </div>
