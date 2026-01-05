@@ -11,7 +11,7 @@
   --card-foreground: #1a1a1a;
   --popover: #f5f0e8;
   --popover-foreground: #1a1a1a;
-  --primary: #2c2c2c; /* hero name dark color */
+  --primary: #2c2c2c;
   --primary-foreground: #EFE9E0;
   --secondary: #d4d0c8;
   --secondary-foreground: #1a1a1a;
@@ -47,7 +47,7 @@
   --card-foreground: #1a1a1a;
   --popover: #f5f0e8;
   --popover-foreground: #1a1a1a;
-  --primary: #2c2c2c; /* hero name dark color */
+  --primary: #2c2c2c;
   --primary-foreground: #EFE9E0;
   --secondary: #d4d0c8;
   --secondary-foreground: #1a1a1a;
@@ -216,6 +216,21 @@ html {
   position: relative;
 }
 
+/* Reusable background matching the chrome text gradient */
+.bg-chrome {
+  background: linear-gradient(
+    135deg,
+    #1a1a1a 0%,
+    #2c2c2c 20%,
+    #4a4a4a 40%,
+    #6b6b6b 60%,
+    #8a8a8a 80%,
+    #a0a0a0 100%
+  );
+  background-size: 200% 200%;
+  color: #fff;
+}
+
 /* Text gradient effect - now black/grey */
 .text-gradient {
   background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 50%, #1a1a1a 100%);
@@ -229,6 +244,24 @@ html {
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Dark gradient button styles (consistent primary button) */
+.btn-dark {
+  background: linear-gradient(135deg, #0f0f0f 0%, #2c2c2c 50%, #000000 100%);
+  color: #ffffff;
+}
+.btn-dark:hover {
+  filter: brightness(1.02);
+}
+.btn-dark-sm {
+  background: linear-gradient(135deg, #0f0f0f 0%, #2c2c2c 50%, #000000 100%);
+  color: #ffffff;
+  font-size: 0.875rem;
+}
+.btn-dark:focus, .btn-dark-sm:focus {
+  outline: 3px solid rgba(255,255,255,0.06);
+  outline-offset: 2px;
+} 
+
 .hover-lift:hover {
   transform: translateY(-8px);
 }
@@ -241,58 +274,6 @@ html {
 .glow-hover:hover {
   box-shadow: 0 0 30px rgba(44, 44, 44, 0.2);
 }
-
-/* Primary CTA button styles */
-.btn-primary {
-  background: linear-gradient(90deg, var(--primary) 0%, #4a4a4a 100%);
-  color: var(--primary-foreground);
-  border-radius: var(--radius);
-  box-shadow: 0 8px 30px rgba(44,44,44,0.15);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.2s ease;
-}
-.btn-primary:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 14px 40px rgba(44,44,44,0.25);
-}
-.btn-primary:focus {
-  outline: 3px solid rgba(44,44,44,0.12);
-  outline-offset: 3px;
-}
-.btn-primary-submitting {
-  opacity: 0.9;
-  filter: brightness(0.95);
-}
-.btn-primary-disabled {
-  background: linear-gradient(90deg, var(--primary) 0%, #4a4a4a 100%);
-  opacity: 0.42;
-  cursor: not-allowed;
-  color: rgba(239,233,224,0.75);
-}
-
-/* Darker modifier for primary CTAs (used by Send Message) */
-.btn-primary-dark {
-  /* solid dark background matching hero name tone */
-  background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary-dark) 100%);
-  box-shadow: 0 12px 40px rgba(27,27,27,0.28);
-  border: 1px solid rgba(0,0,0,0.12);
-  color: #ffffff; /* ensure high contrast */
-  font-weight: 700;
-  text-shadow: 0 1px 0 rgba(0,0,0,0.45);
-}
-.btn-primary-dark:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 20px 56px rgba(27,27,27,0.36);
-}
-/* Ensure disabled & submitting variants remain legible on dark background */
-.btn-primary-dark.btn-primary-disabled{
-  color: rgba(255,255,255,0.92);
-  opacity: 0.6;
-}
-.btn-primary-dark.btn-primary-submitting{
-  color: #ffffff;
-  opacity: 0.96;
-}
-
 
 /* Added 3D transformation support and button animations */
 .perspective {
@@ -414,90 +395,3 @@ html {
   color: transparent;
 }
 .loading-sub { color: #6b6b6b; }
-
-/* Mobile optimizations */
-@media (max-width: 640px) {
-  /* Base font size for better readability */
-  html {
-    font-size: 16px;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-  
-  body {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  
-  /* Improve touch targets */
-  button, 
-  a[role="button"],
-  input[type="button"],
-  input[type="submit"],
-  select {
-    min-height: 44px; /* iOS recommended touch target size */
-    min-width: 44px;
-  }
-  
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  /* Better tap highlighting */
-  * {
-    -webkit-tap-highlight-color: rgba(44, 44, 44, 0.1);
-  }
-  
-  /* Prevent zoom on input focus (iOS) */
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  input[type="tel"],
-  input[type="url"],
-  input[type="search"],
-  textarea,
-  select {
-    font-size: 16px !important; /* Prevents zoom on iOS */
-  }
-  
-  /* Better spacing for mobile */
-  section {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  /* Improve readability */
-  p, li {
-    line-height: 1.7;
-  }
-  
-  /* Better button spacing */
-  button + button {
-    margin-left: 0.5rem;
-  }
-}
-
-/* Touch manipulation utility */
-.touch-manipulation {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Better mobile scrolling */
-@media (max-width: 768px) {
-  body {
-    overflow-x: hidden;
-  }
-  
-  /* Improve button spacing on mobile */
-  button + button {
-    margin-left: 0.5rem;
-  }
-  
-  /* Better form spacing */
-  form > * + * {
-    margin-top: 1rem;
-  }
-}

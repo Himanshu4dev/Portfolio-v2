@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Space_Grotesk, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import { Toaster } from '@/components/ui/toaster'
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" })
 const playfairDisplay = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" })
@@ -33,6 +34,8 @@ export default function RootLayout({
         style={{ touchAction: 'manipulation' }}
       >
         {children}
+        {/* Global toaster for small confirmation/snackbar messages */}
+        <Toaster />
         <Analytics />
       </body>
     </html>

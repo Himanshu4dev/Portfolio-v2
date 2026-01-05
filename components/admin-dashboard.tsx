@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react"
+import { toast } from '@/hooks/use-toast' 
 
 type Reply = { id: number; name: string; message: string; createdAt: string }
 type Testimonial = { id: number; name: string; message: string; rating: number | null; createdAt: string; replies?: Reply[] }
@@ -51,8 +52,9 @@ export default function AdminDashboard() {
         setAdminToken(tokenInput.trim())
         setTokenInput("")
         fetchList()
+        toast({ title: 'Admin login', description: 'You are now logged in.' })
       } else {
-        alert("Invalid token")
+        toast({ title: 'Invalid token', description: 'Login failed', variant: 'destructive' })
       }
     } catch (e) {
       console.error(e)
@@ -63,6 +65,7 @@ export default function AdminDashboard() {
     await fetch("/api/admin/logout", { method: "POST", credentials: 'include' })
     setIsAdmin(false)
     setItems([])
+    toast({ title: 'Logged out', description: 'Admin session ended.' })
   }
 
   async function doDelete(id: number) {
@@ -72,12 +75,16 @@ export default function AdminDashboard() {
       if (res.status === 403 && adminToken) {
         // retry with header token if cookie auth failed
         res = await fetch("/api/testimonials", { method: "DELETE", headers: { "Content-Type": "application/json", "x-admin-token": adminToken }, body: JSON.stringify({ id }) })
+        if (res.status === 403) {
+          res = await fetch("/api/testimonials", { method: "DELETE", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${adminToken}` }, body: JSON.stringify({ id }) })
+        }
       }
       if (res.ok) {
         setItems(prev => prev.filter(it => it.id !== id))
+        toast({ title: 'Deleted', description: 'Testimonial removed.' })
       } else {
         const e = await res.json()
-        alert(e?.error || "Failed to delete")
+        toast({ title: 'Failed to delete', description: e?.error || 'Please try again', variant: 'destructive' })
       }
     } catch (e) {
       console.error(e)
@@ -93,8 +100,11 @@ export default function AdminDashboard() {
         const updated = await res.json()
         setItems(prev => prev.map(it => (it.id === updated.id ? updated : it)))
         setReplyText(prev => ({ ...prev, [id]: "" }))
+        toast({ title: 'Reply sent', description: 'Reply posted.' })
       } else {
-        console.error(await res.json())
+        const err = await res.json()
+        console.error(err)
+        toast({ title: 'Failed to send reply', description: err?.error || 'Please try again', variant: 'destructive' })
       }
     } catch (e) {
       console.error(e)
@@ -107,11 +117,11 @@ export default function AdminDashboard() {
         <h1 className="text-2xl font-semibold">Admin — Testimonials</h1>
         <div>
           {isAdmin ? (
-            <button onClick={logout} className="px-3 py-1 rounded btn-primary btn-primary-dark font-semibold hover-lift">Logout</button>
+            <button onClick={logout} className="px-3 py-1 rounded btn-dark-sm font-semibold hover-lift">Logout</button>
           ) : (
             <div className="flex gap-2">
               <input value={tokenInput} onChange={e => setTokenInput(e.target.value)} placeholder="Admin token" className="rounded border px-2 py-1" />
-              <button onClick={login} className="px-3 py-1 rounded btn-primary btn-primary-dark font-semibold hover-lift">Login</button>
+              <button onClick={login} className="px-3 py-1 rounded btn-dark-sm font-semibold hover-lift">Login</button>
             </div>
           )}
         </div>
@@ -122,7 +132,7 @@ export default function AdminDashboard() {
       {isAdmin && (
         <div>
           <div className="mb-4">
-            <button onClick={fetchList} className="px-3 py-1 rounded btn-primary btn-primary-dark font-semibold hover-lift">Refresh</button>
+            <button onClick={fetchList} className="px-3 py-1 rounded btn-dark-sm font-semibold hover-lift">Refresh</button>
           </div>
 
           {loading && <p>Loading...</p>}
@@ -157,7 +167,7 @@ export default function AdminDashboard() {
                 <div className="mt-3">
                   <textarea value={replyText[it.id] || ""} onChange={e => setReplyText(prev => ({ ...prev, [it.id]: e.target.value }))} className="w-full rounded border px-3 py-2 h-20 mb-2" placeholder="Write a reply" />
                   <div>
-                    <button onClick={() => sendReply(it.id)} className="px-3 py-1 rounded btn-primary btn-primary-dark font-semibold hover-lift">Send Reply</button>
+                    <button onClick={() => sendReply(it.id)} className="px-3 py-1 rounded btn-dark-sm font-semibold hover-lift">Send Reply</button>
                   </div>
                 </div>
               </div>

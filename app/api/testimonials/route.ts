@@ -100,20 +100,40 @@ export async function PATCH(req: Request) {
 
 export async function DELETE(req: Request) {
   try {
-    // require admin token via header 'x-admin-token' or body.token
-    const tokenHeader = req.headers.get("x-admin-token")
     const body = await req.json().catch(() => ({}))
+    const tokenHeader = req.headers.get("x-admin-token")
     const tokenBody = body?.token
-    const token = tokenHeader || tokenBody
+
+    // parse cookie token if present (support cookie based admin session)
+    const cookieHeader = req.headers.get("cookie") || ""
+    let cookieToken: string | undefined
+    if (cookieHeader) {
+      const cookies = cookieHeader.split(";").map(s => s.trim())
+      const adminCookie = cookies.find(s => s.startsWith("admin_session="))
+      if (adminCookie) {
+        cookieToken = adminCookie.split("=").slice(1).join("=")
+      }
+    }
+
+    const token = tokenHeader || tokenBody || cookieToken
     const ADMIN = process.env.ADMIN_TOKEN || ""
+
     if (!ADMIN || !token || token !== ADMIN) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
     }
 
     const id = body?.id
-    if (!id) return NextResponse.json({ error: "id is required" }, { status: 400 })
+    if (id === undefined || id === null) return NextResponse.json({ error: "id is required" }, { status: 400 })
+
     const items = await readTestimonials()
-    const filtered = items.filter((it: any) => it.id !== id)
+    // normalize id types to avoid mismatches (numbers vs strings)
+    const idNum = Number(id)
+    const filtered = items.filter((it: any) => Number(it.id) !== idNum)
+
+    if (filtered.length === items.length) {
+      return NextResponse.json({ error: `Testimonial with id ${id} not found` }, { status: 404 })
+    }
+
     await writeTestimonials(filtered)
     return NextResponse.json({ ok: true })
   } catch (err: any) {

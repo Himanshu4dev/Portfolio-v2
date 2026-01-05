@@ -100,7 +100,10 @@ export async function DELETE(req: Request) {
     const body = await req.json().catch(() => ({}))
     const tokenHeader = req.headers.get("x-admin-token")
     const tokenBody = body?.token
-    
+    // also accept Authorization: Bearer <token>
+    const authHeader = req.headers.get("authorization")
+    const headerToken = authHeader ? authHeader.replace(/^Bearer\s+/i, "") : undefined
+
     // Improved cookie parsing
     const cookieHeader = req.headers.get("cookie") || ""
     let cookieToken: string | undefined
@@ -111,15 +114,16 @@ export async function DELETE(req: Request) {
         cookieToken = adminCookie.split("=").slice(1).join("=") // Handle values with = in them
       }
     }
-    
-    const token = tokenHeader || tokenBody || cookieToken
+
+    const token = tokenHeader || tokenBody || cookieToken || headerToken
     const ADMIN = process.env.ADMIN_TOKEN || ""
-    
+
     console.log("DELETE request - Admin check:", {
       hasAdminToken: !!ADMIN,
       hasCookieToken: !!cookieToken,
       cookieHeader: cookieHeader.substring(0, 50) + "...",
       hasHeaderToken: !!tokenHeader,
+      hasAuthHeader: !!authHeader,
       hasBodyToken: !!tokenBody,
       tokenMatch: token === ADMIN,
       tokenLength: token?.length,
