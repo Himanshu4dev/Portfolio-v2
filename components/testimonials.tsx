@@ -52,29 +52,37 @@ export default function Testimonials() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!message.trim()) return
+    const trimmed = message.trim()
+    if (!trimmed) return toast({ title: 'Message required', description: 'Please enter your testimonial', variant: 'destructive' })
+    if (trimmed.length < 10) return toast({ title: 'Too short', description: 'Please add a longer message (min 10 characters)', variant: 'destructive' })
+
     setLoading(true)
     try {
-      const body = { name: name.trim() || undefined, message: message.trim(), rating: rating === "" ? undefined : Number(rating) }
+      const body = { name: name.trim() || undefined, message: trimmed, rating: rating === "" ? undefined : Number(rating) }
       const res = await fetch("/api/testimonials", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       })
+      const text = await res.text().catch(() => '')
+      let payload: any = {}
+      try { payload = text ? JSON.parse(text) : {} } catch (err) { payload = { raw: text } }
+
       if (res.ok) {
-        const created = await res.json()
+        const created = payload
         setItems(prev => [created, ...prev])
         setName("")
         setMessage("")
         setRating("")
         toast({ title: 'Thanks!', description: 'Your testimonial was submitted.' })
       } else {
-        const err = await res.json()
-        console.error("Submit error", err)
-        toast({ title: 'Failed to submit', description: err?.error || 'Please try again', variant: 'destructive' })
+        console.error("Submit error", res.status, payload)
+        const msg = payload?.error || payload?.message || payload?.raw || 'Please try again'
+        toast({ title: `Failed to submit (${res.status})`, description: msg, variant: 'destructive' })
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error(e)
+      toast({ title: 'Failed to submit', description: e?.message || 'Network error. Please try again', variant: 'destructive' })
     } finally {
       setLoading(false)
     }
