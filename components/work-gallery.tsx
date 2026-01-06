@@ -1,6 +1,5 @@
 "use client"
 import React, { useEffect, useState } from "react"
-import { toast } from '@/hooks/use-toast' 
 
 type Project = { id: number; section: string; title: string; description: string; link: string; thumbnail?: string; createdAt: string }
 
@@ -114,10 +113,9 @@ export default function WorkGallery() {
           setItems(prev => prev.map(it => it.id === updated.id ? updated : it))
           setEditingId(null)
           setForm({ section: SECTIONS[0], title: "", description: "", link: "", thumbnail: "" })
-          toast({ title: 'Project updated', description: 'Changes saved.' })
         } else {
           const err = await res.json()
-          toast({ title: 'Failed to update', description: err?.error || 'Please try again', variant: 'destructive' })
+          alert(err?.error || "Failed to update")
         }
       } else {
         const res = await fetch("/api/projects", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) })
@@ -125,10 +123,9 @@ export default function WorkGallery() {
           const created = await res.json()
           setItems(prev => [created, ...prev])
           setForm({ section: SECTIONS[0], title: "", description: "", link: "", thumbnail: "" })
-          toast({ title: 'Project added', description: 'New project created.' })
         } else {
           const err = await res.json()
-          toast({ title: 'Failed to add', description: err?.error || 'Please try again', variant: 'destructive' })
+          alert(err?.error || "Failed to add project")
         }
       }
     } catch (e) {
@@ -158,15 +155,13 @@ export default function WorkGallery() {
 
       let res = await fetch("/api/projects", { method: "DELETE", headers, body: JSON.stringify(bodyPayload), credentials: "include" })
       if (res.status === 403 && adminToken) {
-        // retry with Authorization: Bearer <token> as last resort
-        res = await fetch("/api/projects", { method: "DELETE", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${adminToken}` }, body: JSON.stringify({ id, token: adminToken }) })
+        res = await fetch("/api/projects", { method: "DELETE", headers: { "Content-Type": "application/json", "x-admin-token": adminToken }, body: JSON.stringify({ id }) })
       }
       if (res.ok) {
         setItems(prev => prev.filter(it => it.id !== id))
-        toast({ title: 'Deleted', description: 'Project removed.' })
       } else {
         const e = await res.json()
-        toast({ title: 'Failed to delete', description: e?.error || 'Please try again', variant: 'destructive' })
+        alert(e?.error || "Failed to delete")
       }
     } catch (e) {
       console.error(e)
@@ -182,9 +177,9 @@ export default function WorkGallery() {
           <h1 className="text-3xl font-display font-black">View My Work</h1>
           <div>
             {isAdmin ? (
-              <button onClick={async () => { await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' }); setIsAdmin(false); setAdminToken(''); cancelEdit() }} className="rounded px-3 py-1 btn-dark-sm">Logout</button>
+              <button onClick={async () => { await fetch('/api/admin/logout', { method: 'POST', credentials: 'include' }); setIsAdmin(false); setAdminToken(''); cancelEdit() }} className="rounded border px-3 py-1">Logout</button>
             ) : (
-              <button onClick={async () => { const t = window.prompt('Enter admin token'); if (!t) return; const res = await fetch('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: t }), credentials: 'include' }); if (res.ok) { setIsAdmin(true); setAdminToken(t) } else { alert('Invalid token') } }} className="rounded px-3 py-1 btn-dark-sm">Admin Login</button>
+              <button onClick={async () => { const t = window.prompt('Enter admin token'); if (!t) return; const res = await fetch('/api/admin/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: t }), credentials: 'include' }); if (res.ok) { setIsAdmin(true); setAdminToken(t) } else { alert('Invalid token') } }} className="rounded border px-3 py-1">Admin Login</button>
             )}
           </div>
         </div>
@@ -213,7 +208,7 @@ export default function WorkGallery() {
               <input value={form.description} onChange={e => setForm(prev => ({ ...prev, description: e.target.value }))} placeholder="Short description" className="rounded border px-3 py-2" />
             </div>
             <div className="mt-3 flex items-center gap-3">
-              <button type="submit" className="rounded btn-dark px-4 py-2">{editingId ? 'Save Changes' : 'Add Project'}</button>
+              <button type="submit" className="rounded bg-slate-900 text-white px-4 py-2">{editingId ? 'Save Changes' : 'Add Project'}</button>
               {editingId && <button type="button" onClick={cancelEdit} className="rounded border px-3 py-2">Cancel</button>}
             </div>
           </form>
