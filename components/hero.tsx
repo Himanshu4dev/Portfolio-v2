@@ -27,7 +27,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="hero-background min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden">
+    <section className="hero-background min-h-screen flex items-center justify-center pt-24 md:pt-28 px-6 relative overflow-hidden">
       <div className="hero-orb orb-primary" />
       <div className="hero-orb orb-accent" />
 
@@ -46,19 +46,29 @@ export default function Hero() {
 
         <Floating3DText />
 
-        <p 
+        <p
           data-animate="heading"
-          className="text-xl md:text-2xl text-foreground mb-8 max-w-2xl mx-auto leading-relaxed font-medium"
+          className="text-base sm:text-lg md:text-xl text-foreground/80 mb-3 max-w-2xl mx-auto leading-relaxed font-medium"
         >
-          Video Editor & Web Developer crafting premium digital experiences with precision and creativity
+          UI/UX & React Frontend Developer · Video Editor
+        </p>
+        <p className="text-sm sm:text-base md:text-lg text-foreground/70 mb-8 max-w-2xl mx-auto leading-relaxed">
+          I design and build clean, production-ready interfaces in React/Next.js and craft cinematic edits for brands,
+          creators, and products that need to feel premium.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center" data-animate="card">
-          <button onClick={() => router.push('/work')} className="px-8 py-4 rounded-lg font-bold hover-lift transform transition-all duration-300 hover:opacity-95 hover:scale-105 btn-dark">
-            View My Work
+          <button
+            onClick={() => router.push("/work")}
+            className="px-8 py-4 rounded-full font-semibold hover-lift btn-dark"
+          >
+            View design & video work
           </button>
-          <button onClick={() => router.push('/contact')} className="px-8 py-4 rounded-lg font-bold hover-lift transform transition-all duration-300 hover:opacity-95 hover:scale-105 btn-dark">
-            Get In Touch
+          <button
+            onClick={() => router.push("#contact")}
+            className="px-8 py-4 rounded-full font-semibold hover-lift bg-card border border-border text-foreground"
+          >
+            Book a project call
           </button>
         </div>
       </div>

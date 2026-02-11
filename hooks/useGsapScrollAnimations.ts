@@ -11,6 +11,41 @@ export function useGsapScrollAnimations({
   cardSelector = "[data-animate='card']",
 } = {}) {
   useEffect(() => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    // If user prefers reduced motion, keep everything visible but don't animate
+    if (prefersReduced) {
+      const headings = gsap.utils.toArray<HTMLElement>(headingSelector)
+      const cards = gsap.utils.toArray<HTMLElement>(cardSelector)
+
+      headings.forEach((heading) => {
+        gsap.set(heading, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "none",
+        })
+      })
+
+      cards.forEach((card) => {
+        gsap.set(card, {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          filter: "none",
+        })
+      })
+
+      return
+    }
+
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768
+
     // Enhanced heading animations with scale and blur effects
     const headings = gsap.utils.toArray<HTMLElement>(headingSelector)
     const headingTweens = headings.map((heading) => {
@@ -18,9 +53,9 @@ export function useGsapScrollAnimations({
         heading,
         {
           opacity: 0,
-          y: 60,
-          scale: 0.9,
-          filter: "blur(10px)",
+          y: isMobile ? 30 : 50,
+          scale: 0.96,
+          filter: "blur(6px)",
         },
         {
           opacity: 1,
@@ -45,11 +80,11 @@ export function useGsapScrollAnimations({
         card,
         {
           opacity: 0,
-          y: 100,
-          rotateX: -15,
-          rotateY: -5,
-          scale: 0.85,
-          filter: "blur(8px)",
+          y: isMobile ? 40 : 80,
+          rotateX: isMobile ? -5 : -10,
+          rotateY: isMobile ? 0 : -4,
+          scale: 0.94,
+          filter: "blur(6px)",
         },
         {
           opacity: 1,
@@ -59,8 +94,8 @@ export function useGsapScrollAnimations({
           scale: 1,
           filter: "blur(0px)",
           duration: 1,
-          delay: index * 0.1,
-          ease: "power3.out",
+          delay: index * 0.06,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: card,
             start: "top 90%",
@@ -72,9 +107,9 @@ export function useGsapScrollAnimations({
 
     // Add parallax effect to hero section
     const hero = document.querySelector(".hero-background")
-    if (hero) {
+    if (hero && !isMobile) {
       gsap.to(hero, {
-        y: -100,
+        y: -60,
         ease: "none",
         scrollTrigger: {
           trigger: hero,

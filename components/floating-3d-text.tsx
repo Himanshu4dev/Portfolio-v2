@@ -8,6 +8,18 @@ export default function Floating3DText() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [rotation, setRotation] = useState({ x: 0, y: 0 })
   useEffect(() => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768
+
+    // Skip global mouse tracking on touch devices / reduced motion;
+    // text will still look premium due to chrome styling.
+    if (prefersReduced || isMobile) {
+      return
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return
 

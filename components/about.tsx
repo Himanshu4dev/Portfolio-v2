@@ -12,6 +12,18 @@ function AboutCard3D({ label, value }: Card3DProps) {
   const [transform, setTransform] = useState("rotateX(0deg) rotateY(0deg)")
 
   useEffect(() => {
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768
+
+    if (prefersReduced || isMobile) {
+      // Keep card flat on mobile / reduced motion for a more minimal, Apple-like feel
+      setTransform("perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)")
+      return
+    }
+
     const card = cardRef.current
     if (!card) return
 
@@ -69,16 +81,17 @@ export default function About() {
           data-animate="heading"
           className="text-3xl sm:text-4xl md:text-5xl font-black font-display mb-6 sm:mb-8 md:mb-12 text-foreground tracking-tight"
         >
-          About Me
+          A bit about how I work
         </h2>
         <div data-animate="card" className="mb-6 sm:mb-8">
           <p className="text-base sm:text-lg md:text-xl text-foreground mb-4 sm:mb-5 leading-relaxed font-medium">
-            I believe in the power of combining creative vision with technical excellence. Every project I undertake
-            is an opportunity to push boundaries and deliver exceptional results that exceed expectations.
+            I combine UI/UX thinking, modern React/Next.js, and cinematic video editing to ship experiences that feel
+            crafted—not templated. From your first wireframe or rough cut, I help shape a clear story and translate it
+            into pixels and frames.
           </p>
           <p className="text-base sm:text-lg md:text-xl text-foreground leading-relaxed font-medium">
-            When I'm not creating, you'll find me exploring new design trends, experimenting with emerging
-            technologies, or collaborating with talented creators to bring ambitious ideas to life.
+            I care a lot about typography, spacing, and motion that feels intentional. The result is interfaces and
+            videos that look minimal on the surface, but have enough micro‑details to feel truly premium.
           </p>
         </div>
 

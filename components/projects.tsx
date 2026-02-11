@@ -1,51 +1,57 @@
 export default function Projects() {
   const projects = [
     {
-      title: "Brand Documentary",
+      title: "SaaS dashboard UX & UI",
+      category: "Product UI/UX · Frontend",
+      description:
+        "Redesigned a B2B analytics dashboard with clearer information hierarchy, dark‑mode friendly visuals, and a React component system ready for growth.",
+      tags: ["Product design", "Figma system", "React/Next.js"],
+    },
+    {
+      title: "E‑commerce landing & flows",
+      category: "UI/UX · React",
+      description:
+        "Crafted a high‑converting landing page and checkout flow with refined typography, responsive grid, and a smooth, app‑like feel.",
+      tags: ["Landing page", "Conversion UX", "Next.js"],
+    },
+    {
+      title: "Launch promo edit",
       category: "Video Editing",
-      description: "A compelling 15-minute documentary showcasing a tech startup's journey and impact.",
-      tags: ["Premiere Pro", "Motion Graphics", "Color Grading"],
+      description:
+        "Edited a launch promo with fast, clean cuts, color‑graded b‑roll, sound design, and light motion graphics that stayed on‑brand.",
+      tags: ["Premiere Pro", "Color grading", "Motion graphics"],
     },
     {
-      title: "E-Commerce Platform",
-      category: "Web Development",
-      description: "Full-stack e-commerce solution with real-time inventory and payment integration.",
-      tags: ["Next.js", "React", "Stripe", "PostgreSQL"],
+      title: "Creator reel system",
+      category: "Short‑form video",
+      description:
+        "Built a repeatable edit system for reels and shorts: hooks, pacing, typography overlays, and exporting presets for multiple platforms.",
+      tags: ["Reels", "Short‑form", "Templates"],
     },
     {
-      title: "Music Video Production",
-      category: "Video Editing",
-      description: "High-energy music video with custom visual effects and synchronized animations.",
-      tags: ["After Effects", "DaVinci Resolve", "VFX"],
+      title: "Brand identity motion kit",
+      category: "Video & brand",
+      description:
+        "Created a pack of intros, lower‑thirds, transitions, and logo animations that made all future video content feel consistently on‑brand.",
+      tags: ["Branding", "Motion design", "After Effects"],
     },
     {
-      title: "SaaS Dashboard",
-      category: "Web Development",
-      description: "Analytics dashboard with real-time data visualization and user management.",
-      tags: ["React", "TypeScript", "Recharts", "Tailwind"],
-    },
-    {
-      title: "Corporate Branding",
-      category: "Video Editing",
-      description: "Complete brand identity video suite including intro, transitions, and lower thirds.",
-      tags: ["Motion Design", "Branding", "Animation"],
-    },
-    {
-      title: "Portfolio Website",
-      category: "Web Development",
-      description: "Premium portfolio website with interactive animations and smooth scrolling.",
-      tags: ["Next.js", "Tailwind CSS", "Framer Motion"],
+      title: "Personal portfolio system",
+      category: "Design · React",
+      description:
+        "Designed and implemented this portfolio as a reusable, content‑driven system that showcases both UI/UX and video work together.",
+      tags: ["Design & code", "Next.js", "Tailwind CSS"],
     },
   ]
 
   return (
-    <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-card/30">
+    <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-card/20">
       <div className="max-w-6xl mx-auto">
         <h2
           data-animate="heading"
           className="text-3xl sm:text-4xl md:text-5xl font-black font-display mb-8 sm:mb-12 text-foreground tracking-tight"
         >
-          Featured Projects
+          Selected case studies
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">

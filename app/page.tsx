@@ -4,6 +4,8 @@ import Hero from "@/components/hero"
 import About from "@/components/about"
 import Skills from "@/components/skills"
 import Projects from "@/components/projects"
+import Services from "@/components/services"
+import Process from "@/components/process"
 import Contact from "@/components/contact"
 import Testimonials from "@/components/testimonials"
 import CursorGlow from "@/components/cursor-glow"
@@ -18,7 +20,9 @@ export default function Home() {
       <Hero />
       <About />
       <Skills />
+      <Services />
       <Projects />
+      <Process />
       <Contact />
       <Testimonials />
     </main>
