@@ -58,22 +58,6 @@ export default function WorkGallery() {
   const [fullScreenUrl, setFullScreenUrl] = useState<string>("")
 
   useEffect(() => {
-    // #region agent log
-    fetch("http://127.0.0.1:7242/ingest/7b53ace5-3b75-4a3d-9293-c97ca38cb341", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: `log_${Date.now()}_work_mount`,
-        timestamp: Date.now(),
-        location: "components/work-gallery.tsx:60",
-        message: "WorkGallery mounted",
-        data: {},
-        runId: "initial",
-        hypothesisId: "H0",
-      }),
-    }).catch(() => {})
-    // #endregion agent log
-
     fetchList()
     checkAdmin()
   }, [])
@@ -108,22 +92,7 @@ export default function WorkGallery() {
       const res = await fetch("/api/projects")
       if (!res.ok) return
       const data = await res.json()
-      setItems(data)
-      // #region agent log
-      fetch("http://127.0.0.1:7242/ingest/7b53ace5-3b75-4a3d-9293-c97ca38cb341", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: `log_${Date.now()}_work_fetch`,
-          timestamp: Date.now(),
-          location: "components/work-gallery.tsx:95",
-          message: "WorkGallery fetchList result",
-          data: { length: Array.isArray(data) ? data.length : -1 },
-          runId: "initial",
-          hypothesisId: "H1",
-        }),
-      }).catch(() => {})
-      // #endregion agent log
+      setItems(Array.isArray(data) ? data : [])
     } catch (e) {
       console.error(e)
     } finally {
@@ -323,14 +292,8 @@ export default function WorkGallery() {
           </div>
         )}
 
-        {!loading && items.length === 0 && (
-          <div className="py-12 text-center text-sm sm:text-base text-muted-foreground">
-            No work added yet. Use the admin form above to add your first project.
-          </div>
-        )}
-
         {/* Category sections - hide if no items in the selected category */}
-        {items.length > 0 && visibleSections
+        {visibleSections
           .filter((s) => (s === "All" ? true : items.some((it) => it.section === s)))
           .map(
             (section) =>

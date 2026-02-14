@@ -65,13 +65,13 @@ export default function Header() {
       const header = headerRef.current
       if (!header) return
 
-      // Smooth background transition
+      // Smooth background transition (theme-aware)
       if (scrolled) {
         gsap.to(header, {
-          backgroundColor: "rgba(239, 233, 224, 0.7)",
+          backgroundColor: "rgba(5, 8, 22, 0.85)",
           backdropFilter: "blur(20px)",
           borderBottomWidth: "1px",
-          boxShadow: "0 10px 30px rgba(44, 44, 44, 0.1)",
+          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
           duration: 0.3,
           ease: "power2.out",
         })
@@ -80,7 +80,7 @@ export default function Header() {
           backgroundColor: "transparent",
           backdropFilter: "blur(0px)",
           borderBottomWidth: "0px",
-          boxShadow: "0 0 0 rgba(44, 44, 44, 0)",
+          boxShadow: "0 0 0 transparent",
           duration: 0.3,
           ease: "power2.out",
         })
@@ -257,7 +257,7 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
         <Link
           ref={logoRef}
-          href="#"
+          href="/"
           className="text-xl sm:text-2xl font-black font-display text-foreground relative group cursor-pointer touch-manipulation"
           onMouseEnter={(e) => handleLogoHover(e, true)}
           onMouseLeave={(e) => handleLogoHover(e, false)}
@@ -267,10 +267,10 @@ export default function Header() {
         </Link>
 
         <div ref={navLinksRef} className="hidden md:flex gap-8 items-center">
-          {["About", "Skills", "Projects", "Contact"].map((item) => (
+          {(["Work", "About", "Skills", "Projects", "Contact"] as const).map((item) => (
             <Link
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={item === "Work" ? "/work" : `#${item.toLowerCase()}`}
               className="text-sm font-semibold text-foreground hover:text-primary relative group cursor-pointer"
               onMouseEnter={(e) => handleNavLinkHover(e, true)}
               onMouseLeave={(e) => handleNavLinkHover(e, false)}
@@ -338,10 +338,10 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
           <div className="grid gap-2">
-            {["About", "Skills", "Projects", "Contact"].map((item, index) => (
+            {(["Work", "About", "Skills", "Projects", "Contact"] as const).map((item) => (
               <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                href={item === "Work" ? "/work" : `#${item.toLowerCase()}`}
                 onClick={() => setIsMenuOpen(false)}
                 className="py-2 text-sm font-medium text-foreground hover:text-primary transition-colors duration-300 cursor-pointer"
                 onMouseEnter={(e) => {

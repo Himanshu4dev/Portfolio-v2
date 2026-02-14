@@ -1,30 +1,12 @@
 "use client"
 
-import { useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import Link from "next/link"
 import Floating3DText from "./floating-3d-text"
 
 export default function Hero() {
-  const textRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!textRef.current) return
-
-      const rect = textRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-
-      const angle = Math.atan2(y - rect.height / 2, x - rect.width / 2) * (180 / Math.PI)
-
-      textRef.current.style.setProperty("--rotation", `${angle}deg`)
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
 
   return (
     <section className="hero-background min-h-screen flex items-center justify-center pt-24 md:pt-28 px-6 relative overflow-hidden">
@@ -64,12 +46,12 @@ export default function Hero() {
           >
             View design & video work
           </button>
-          <button
-            onClick={() => router.push("#contact")}
-            className="px-8 py-4 rounded-full font-semibold hover-lift bg-card border border-border text-foreground"
+          <Link
+            href="#contact"
+            className="px-8 py-4 rounded-full font-semibold hover-lift bg-card border border-border text-foreground inline-flex justify-center"
           >
             Book a project call
-          </button>
+          </Link>
         </div>
       </div>
     </section>

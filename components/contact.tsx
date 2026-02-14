@@ -99,7 +99,7 @@ export default function Contact() {
             disabled={isSubmitting || !isFormValid}
             className={`w-full px-8 py-4 rounded-lg font-black transition-all duration-500 ${
               isSubmitted
-                ? "bg-accent text-accent-foreground scale-105 shadow-[0_0_30px_rgba(74,74,74,0.3)]"
+                ? "bg-accent text-accent-foreground scale-105 shadow-xl"
                 : isSubmitting
                   ? "btn-dark opacity-80 scale-95"
                   : isFormValid
