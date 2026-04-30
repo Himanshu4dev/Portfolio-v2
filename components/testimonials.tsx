@@ -170,9 +170,14 @@ export default function Testimonials() {
   }
 
   return (
-    <section id="testimonials" className="my-16 px-4 sm:px-6 max-w-3xl mx-auto reveal section-shell p-6 sm:p-8 md:p-10" ref={useScrollReveal<HTMLElement>()}>
+    <section id="testimonials" className="my-16 px-4 sm:px-6 max-w-6xl mx-auto reveal section-shell p-6 sm:p-8 md:p-10" ref={useScrollReveal<HTMLElement>()}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-        <h2 className="section-title text-2xl sm:text-3xl font-semibold">Testimonials & Advice</h2>
+        <div>
+          <p className="text-xs font-semibold tracking-[0.24em] uppercase text-muted-foreground/90 mb-2">Testimonials</p>
+          <h2 className="section-title text-3xl sm:text-4xl font-black font-display" data-animate="heading">
+            Real wins from real clients
+          </h2>
+        </div>
         <div>
           {isAdmin ? (
             <button 
@@ -209,49 +214,65 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="mb-8 space-y-4">
-        <input
-          value={name}
-          onChange={e => setName(e.target.value)}
-          placeholder="Your name (optional)"
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all"
-        />
-        <textarea
-          value={message}
-          onChange={e => setMessage(e.target.value)}
-          placeholder="Share advice, feedback or a short testimonial"
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 h-24 resize-none focus:ring-2 focus:ring-primary/20 transition-all"
-        />
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <label className="text-sm font-medium">Rating</label>
-          <div className="flex items-center gap-2">
-            {[1, 2, 3, 4, 5].map(i => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => setRating(i)}
-                className={`text-3xl transition-all transform hover:scale-110 ${i <= (rating === "" ? 0 : Number(rating)) ? "text-yellow-400" : "text-slate-300"}`}
-                aria-label={String(i)}
-              >
-                ★
-              </button>
-            ))}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8" data-animate="card">
+        {[
+          { label: "Editors onboarded", value: "670+" },
+          { label: "Avg rating", value: "4.9/5" },
+          { label: "Premium projects", value: "120+" },
+          { label: "Repeat clients", value: "85%" },
+        ].map((item) => (
+          <div key={item.label} className="modern-card px-4 py-4 text-center">
+            <p className="text-xl sm:text-2xl font-black">{item.value}</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">{item.label}</p>
           </div>
-          <button 
-            type="submit" 
-            disabled={loading} 
-            className="sm:ml-auto w-full sm:w-auto rounded-lg btn-dark px-6 py-3 font-semibold btn-interactive disabled:opacity-50 flex items-center justify-center gap-2"
+        ))}
+      </div>
+
+      <div className="grid lg:grid-cols-[1fr_1.45fr] gap-6">
+        <form onSubmit={handleSubmit} className="modern-card p-5 sm:p-6 space-y-4 ue-spotlight" data-animate="card">
+          <h3 className="text-xl font-semibold">Leave your testimonial</h3>
+          <input
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Your name (optional)"
+            className="w-full rounded-lg border border-border bg-card px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all"
+          />
+          <textarea
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+            placeholder="Share advice, feedback or a short testimonial"
+            className="w-full rounded-lg border border-border bg-card px-4 py-3 h-24 resize-none focus:ring-2 focus:ring-primary/20 transition-all"
+          />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <label className="text-sm font-medium">Rating</label>
+            <div className="flex items-center gap-2">
+              {[1, 2, 3, 4, 5].map(i => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setRating(i)}
+                  className={`text-3xl transition-all transform hover:scale-110 ${i <= (rating === "" ? 0 : Number(rating)) ? "text-yellow-400" : "text-slate-300"}`}
+                  aria-label={String(i)}
+                >
+                  ★
+                </button>
+              ))}
+            </div>
+          </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-lg btn-dark px-6 py-3 font-semibold btn-interactive disabled:opacity-50 flex items-center justify-center gap-2"
           >
             {loading && <LoadingSpinner size="sm" />}
             {loading ? "Saving..." : "Submit"}
           </button>
-        </div>
-      </form>
+        </form>
 
-      <div className="space-y-6">
+      <div className="space-y-6" data-animate="card">
         {items.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No testimonials yet — be the first!</p>}
         {items.map(it => (
-          <div key={it.id} className="modern-card p-4 sm:p-6 card-hover reveal" ref={useScrollReveal<HTMLDivElement>()}>
+          <div key={it.id} className="modern-card p-4 sm:p-6 card-hover reveal ue-spotlight" ref={useScrollReveal<HTMLDivElement>()}>
             <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-3">
               <div className="flex-1">
                 <div className="text-sm font-semibold mb-2">{it.name || "Anonymous"}</div>
@@ -318,6 +339,7 @@ export default function Testimonials() {
             )}
           </div>
         ))}
+      </div>
       </div>
     </section>
   )

@@ -68,10 +68,10 @@ export default function Header() {
       // Smooth background transition (theme-aware)
       if (scrolled) {
         gsap.to(header, {
-          backgroundColor: "rgba(246, 243, 238, 0.86)",
+          backgroundColor: "rgba(8, 11, 19, 0.82)",
           backdropFilter: "blur(16px)",
           borderBottomWidth: "1px",
-          boxShadow: "0 10px 28px rgba(23, 23, 23, 0.1)",
+          boxShadow: "0 10px 30px rgba(2, 6, 23, 0.46)",
           duration: 0.3,
           ease: "power2.out",
         })
@@ -271,7 +271,7 @@ export default function Header() {
             <Link
               key={item}
               href={item === "Work" ? "/work" : `#${item.toLowerCase()}`}
-              className="text-sm font-semibold text-foreground/85 hover:text-foreground relative group cursor-pointer"
+              className="text-sm font-semibold text-foreground/80 hover:text-foreground relative group cursor-pointer motion-underline"
               onMouseEnter={(e) => handleNavLinkHover(e, true)}
               onMouseLeave={(e) => handleNavLinkHover(e, false)}
             >
@@ -284,7 +284,7 @@ export default function Header() {
         <div ref={buttonsRef} className="hidden md:flex gap-4 items-center">
           <button
             onClick={handleDownloadResume}
-            className="flex items-center gap-2 px-4 py-2 bg-card/90 border border-border text-foreground rounded-full text-sm font-semibold hover:bg-muted cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 bg-card/80 border border-border text-foreground rounded-full text-sm font-semibold hover:bg-muted cursor-pointer"
             onMouseEnter={(e) => handleButtonHover(e, true)}
             onMouseLeave={(e) => handleButtonHover(e, false)}
           >
@@ -369,7 +369,7 @@ export default function Header() {
                 handleDownloadResume()
                 setIsMenuOpen(false)
               }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-card/90 border border-border text-foreground rounded-full text-sm font-semibold hover:bg-muted cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-card/80 border border-border text-foreground rounded-full text-sm font-semibold hover:bg-muted cursor-pointer"
               onMouseEnter={(e) => handleButtonHover(e, true)}
               onMouseLeave={(e) => handleButtonHover(e, false)}
             >

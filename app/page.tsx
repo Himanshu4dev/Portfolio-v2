@@ -6,6 +6,7 @@ import Skills from "@/components/skills"
 import Projects from "@/components/projects"
 import Services from "@/components/services"
 import Process from "@/components/process"
+import Pricing from "@/components/pricing"
 import Contact from "@/components/contact"
 import Testimonials from "@/components/testimonials"
 import CursorGlow from "@/components/cursor-glow"
@@ -23,6 +24,7 @@ export default function Home() {
       <Services />
       <Projects />
       <Process />
+      <Pricing />
       <Contact />
       <Testimonials />
     </main>
