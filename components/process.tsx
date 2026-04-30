@@ -21,15 +21,15 @@ export default function Process() {
   ]
 
   return (
-    <section id="process" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-card/10">
-      <div className="max-w-6xl mx-auto">
+    <section id="process" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto section-shell p-6 sm:p-8 md:p-10">
         <div className="mb-8 sm:mb-12">
           <p className="text-xs font-semibold tracking-[0.24em] uppercase text-muted-foreground/80 mb-2">
             How we work
           </p>
           <h2
             data-animate="heading"
-            className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-foreground tracking-tight"
+            className="section-title text-3xl sm:text-4xl md:text-5xl font-black font-display text-foreground tracking-tight"
           >
             A simple, clear process
           </h2>
@@ -40,7 +40,7 @@ export default function Process() {
             <div
               key={step.label}
               data-animate="card"
-              className="relative overflow-hidden rounded-2xl bg-card border border-border p-5 sm:p-6 md:p-7 card-hover"
+              className="modern-card relative overflow-hidden p-5 sm:p-6 md:p-7 card-hover"
             >
               <span className="text-xs font-semibold tracking-[0.24em] uppercase text-muted-foreground">
                 {step.label}

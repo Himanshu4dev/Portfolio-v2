@@ -40,10 +40,10 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-20 px-6">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto section-shell p-6 sm:p-8 md:p-10">
         <h2
           data-animate="heading"
-          className="text-4xl md:text-5xl font-black font-display mb-4 text-foreground text-center tracking-tight"
+          className="section-title text-4xl md:text-5xl font-black font-display mb-4 text-foreground text-center tracking-tight"
         >
           Let's Create Something Amazing
         </h2>

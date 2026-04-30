@@ -24,15 +24,15 @@ export default function Services() {
   ]
 
   return (
-    <section id="services" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-card/5">
-      <div className="max-w-6xl mx-auto">
+    <section id="services" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto section-shell p-6 sm:p-8 md:p-10">
         <div className="mb-8 sm:mb-12">
           <p className="text-xs font-semibold tracking-[0.24em] uppercase text-muted-foreground/80 mb-2">
             What I do
           </p>
           <h2
             data-animate="heading"
-            className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-foreground tracking-tight"
+            className="section-title text-3xl sm:text-4xl md:text-5xl font-black font-display text-foreground tracking-tight"
           >
             Services at a glance
           </h2>
@@ -43,7 +43,7 @@ export default function Services() {
             <article
               key={service.title}
               data-animate="card"
-              className="bg-card border border-border rounded-2xl p-5 sm:p-6 md:p-7 card-hover"
+              className="modern-card p-5 sm:p-6 md:p-7 card-hover"
             >
               <p className="text-[0.7rem] tracking-[0.22em] uppercase text-muted-foreground mb-2">
                 {service.subtitle}

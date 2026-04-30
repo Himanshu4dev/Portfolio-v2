@@ -25,10 +25,10 @@ export default function Skills() {
 
   return (
     <section id="skills" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto section-shell p-6 sm:p-8 md:p-10">
         <h2
           data-animate="heading"
-          className="text-3xl sm:text-4xl md:text-5xl font-black font-display mb-6 sm:mb-8 md:mb-12 text-foreground tracking-tight"
+          className="section-title text-3xl sm:text-4xl md:text-5xl font-black font-display mb-6 sm:mb-8 md:mb-12 text-foreground tracking-tight"
         >
           Craft across design, code & video
         </h2>
@@ -38,7 +38,7 @@ export default function Skills() {
             <div
               key={category}
               data-animate="card"
-              className="bg-card border border-border rounded-2xl p-5 sm:p-6 md:p-8 hover-lift glow-hover transform transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(44,44,44,0.1)]"
+              className="modern-card p-5 sm:p-6 md:p-8 hover-lift glow-hover transform transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(31,41,55,0.12)]"
             >
               <h3
                 data-animate="heading"

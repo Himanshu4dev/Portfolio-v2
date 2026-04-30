@@ -4,26 +4,26 @@
 /* removed unsupported @custom-variant */
 
 :root {
-  /* Updated color palette - light background with black/grey text */
-  --background: #EFE9E0;
-  --foreground: #1a1a1a;
-  --card: #f5f0e8;
+  /* Modern warm-neutral palette */
+  --background: #f6f3ee;
+  --foreground: #171717;
+  --card: #fcfaf7;
   --card-foreground: #1a1a1a;
   --popover: #f5f0e8;
   --popover-foreground: #1a1a1a;
-  --primary: #2c2c2c;
-  --primary-foreground: #EFE9E0;
-  --secondary: #d4d0c8;
+  --primary: #1f2937;
+  --primary-foreground: #f6f3ee;
+  --secondary: #e5dfd6;
   --secondary-foreground: #1a1a1a;
-  --muted: #e8e3db;
-  --muted-foreground: #4a4a4a;
-  --accent: #4a4a4a;
-  --accent-foreground: #EFE9E0;
+  --muted: #ece7df;
+  --muted-foreground: #52525b;
+  --accent: #334155;
+  --accent-foreground: #f6f3ee;
   --destructive: #8b1a1a;
   --destructive-foreground: #EFE9E0;
-  --border: #d4d0c8;
-  --input: #f5f0e8;
-  --ring: #2c2c2c;
+  --border: #ddd5ca;
+  --input: #fcfaf7;
+  --ring: #1f2937;
   --chart-1: #2c2c2c;
   --chart-2: #4a4a4a;
   --chart-3: #6b6b6b;
@@ -79,7 +79,14 @@
 
 /* Base styles (replaced Tailwind @apply with equivalent CSS) */
 * { box-sizing: border-box; border-color: var(--border); }
-body { background: var(--background); color: var(--foreground); font-family: var(--font-body, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial); }
+body {
+  background:
+    radial-gradient(circle at 0% 0%, rgba(31, 41, 55, 0.04), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(71, 85, 105, 0.04), transparent 40%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial);
+}
 
 /* Premium portfolio custom styles */
 
@@ -123,7 +130,7 @@ body { background: var(--background); color: var(--foreground); font-family: var
 .hero-background {
   position: relative;
   overflow: hidden;
-  background: #EFE9E0;
+  background: transparent;
   background-size: 400% 400%;
 }
 
@@ -139,20 +146,20 @@ body { background: var(--background); color: var(--foreground); font-family: var
 .orb-primary {
   width: 350px;
   height: 350px;
-  background: rgba(44, 44, 44, 0.1);
+  background: rgba(31, 41, 55, 0.12);
   top: -100px;
   right: -100px;
-  box-shadow: 0 0 100px rgba(44, 44, 44, 0.2);
+  box-shadow: 0 0 100px rgba(31, 41, 55, 0.18);
 }
 
 .orb-accent {
   width: 300px;
   height: 300px;
-  background: rgba(74, 74, 74, 0.1);
+  background: rgba(51, 65, 85, 0.12);
   bottom: -50px;
   left: -50px;
   animation-delay: -10s;
-  box-shadow: 0 0 100px rgba(74, 74, 74, 0.2);
+  box-shadow: 0 0 100px rgba(51, 65, 85, 0.16);
 }
 
 /* Cursor glow effect */
@@ -264,7 +271,28 @@ html {
 
 .hover-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 18px 34px rgba(23, 23, 23, 0.14);
+}
+
+.section-shell {
+  position: relative;
+  border: 1px solid rgba(221, 213, 202, 0.8);
+  border-radius: 1.5rem;
+  background: linear-gradient(180deg, rgba(252, 250, 247, 0.9) 0%, rgba(250, 247, 242, 0.78) 100%);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 24px rgba(23, 23, 23, 0.06);
+}
+
+.section-title {
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.modern-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(221, 213, 202, 0.9);
+  background: linear-gradient(180deg, rgba(252, 250, 247, 0.96), rgba(245, 240, 232, 0.9));
+  box-shadow: 0 10px 26px rgba(23, 23, 23, 0.06);
 }
 
 /* Glow on hover */

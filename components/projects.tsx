@@ -45,11 +45,11 @@ export default function Projects() {
   ]
 
   return (
-    <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-8 bg-card/20">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" className="py-12 sm:py-16 px-4 sm:px-6 md:px-8">
+      <div className="max-w-6xl mx-auto section-shell p-6 sm:p-8 md:p-10">
         <h2
           data-animate="heading"
-          className="text-3xl sm:text-4xl md:text-5xl font-black font-display mb-8 sm:mb-12 text-foreground tracking-tight"
+          className="section-title text-3xl sm:text-4xl md:text-5xl font-black font-display mb-8 sm:mb-12 text-foreground tracking-tight"
         >
           Selected case studies
         </h2>
@@ -59,7 +59,7 @@ export default function Projects() {
             <div
               key={project.title}
               data-animate="card"
-              className="bg-card border border-border rounded-lg p-6 sm:p-8 group cursor-pointer transform transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(44,44,44,0.1)] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+              className="modern-card p-6 sm:p-8 group cursor-pointer transform transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(31,41,55,0.12)] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
             >
               <div className="mb-4 inline-block px-2 sm:px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
                 <span className="text-sm font-semibold text-foreground">{project.category}</span>

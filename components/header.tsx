@@ -68,10 +68,10 @@ export default function Header() {
       // Smooth background transition (theme-aware)
       if (scrolled) {
         gsap.to(header, {
-          backgroundColor: "rgba(5, 8, 22, 0.85)",
-          backdropFilter: "blur(20px)",
+          backgroundColor: "rgba(246, 243, 238, 0.86)",
+          backdropFilter: "blur(16px)",
           borderBottomWidth: "1px",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)",
+          boxShadow: "0 10px 28px rgba(23, 23, 23, 0.1)",
           duration: 0.3,
           ease: "power2.out",
         })
@@ -250,7 +250,7 @@ export default function Header() {
       ref={headerRef}
       className={`fixed top-0 w-full z-50 ${
         isScrolled
-          ? "border-b border-primary/20"
+          ? "border-b border-border/80"
           : ""
       }`}
     >
@@ -271,7 +271,7 @@ export default function Header() {
             <Link
               key={item}
               href={item === "Work" ? "/work" : `#${item.toLowerCase()}`}
-              className="text-sm font-semibold text-foreground hover:text-primary relative group cursor-pointer"
+              className="text-sm font-semibold text-foreground/85 hover:text-foreground relative group cursor-pointer"
               onMouseEnter={(e) => handleNavLinkHover(e, true)}
               onMouseLeave={(e) => handleNavLinkHover(e, false)}
             >
@@ -284,7 +284,7 @@ export default function Header() {
         <div ref={buttonsRef} className="hidden md:flex gap-4 items-center">
           <button
             onClick={handleDownloadResume}
-            className="flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 text-accent rounded-full text-sm font-semibold hover:bg-accent/20 hover:border-accent/50 cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 bg-card/90 border border-border text-foreground rounded-full text-sm font-semibold hover:bg-muted cursor-pointer"
             onMouseEnter={(e) => handleButtonHover(e, true)}
             onMouseLeave={(e) => handleButtonHover(e, false)}
           >
@@ -296,7 +296,7 @@ export default function Header() {
             href="https://wa.me/7235933039"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-2 bg-primary/10 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:bg-primary/20 hover:border-primary/50 cursor-pointer"
+            className="px-6 py-2 btn-dark rounded-full text-sm font-semibold cursor-pointer"
             onMouseEnter={(e) => handleButtonHover(e, true)}
             onMouseLeave={(e) => handleButtonHover(e, false)}
           >
@@ -333,7 +333,7 @@ export default function Header() {
       {/* Mobile dropdown menu */}
       <div
         ref={mobileMenuRef}
-        className="md:hidden border-t border-primary/20 bg-background/90 backdrop-blur-xl overflow-hidden"
+        className="md:hidden border-t border-border/80 bg-background/90 backdrop-blur-xl overflow-hidden"
         style={{ display: "none" }}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4">
@@ -369,7 +369,7 @@ export default function Header() {
                 handleDownloadResume()
                 setIsMenuOpen(false)
               }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 text-accent rounded-full text-sm font-semibold hover:bg-accent/20 hover:border-accent/50 cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-card/90 border border-border text-foreground rounded-full text-sm font-semibold hover:bg-muted cursor-pointer"
               onMouseEnter={(e) => handleButtonHover(e, true)}
               onMouseLeave={(e) => handleButtonHover(e, false)}
             >
@@ -381,7 +381,7 @@ export default function Header() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setIsMenuOpen(false)}
-              className="w-full text-center px-6 py-2 bg-primary/10 border border-primary/30 text-primary rounded-full text-sm font-semibold hover:bg-primary/20 hover:border-primary/50 cursor-pointer"
+              className="w-full text-center px-6 py-2 btn-dark rounded-full text-sm font-semibold cursor-pointer"
               onMouseEnter={(e) => handleButtonHover(e, true)}
               onMouseLeave={(e) => handleButtonHover(e, false)}
             >

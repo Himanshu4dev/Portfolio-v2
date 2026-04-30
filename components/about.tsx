@@ -75,11 +75,11 @@ function AboutCard3D({ label, value }: Card3DProps) {
 
 export default function About() {
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-card/10">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+      <div className="max-w-6xl mx-auto section-shell p-6 sm:p-8 md:p-10">
         <h2
           data-animate="heading"
-          className="text-3xl sm:text-4xl md:text-5xl font-black font-display mb-6 sm:mb-8 md:mb-12 text-foreground tracking-tight"
+          className="section-title text-3xl sm:text-4xl md:text-5xl font-black font-display mb-6 sm:mb-8 md:mb-12 text-foreground tracking-tight"
         >
           A bit about how I work
         </h2>

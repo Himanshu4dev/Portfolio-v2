@@ -170,9 +170,9 @@ export default function Testimonials() {
   }
 
   return (
-    <section id="testimonials" className="my-16 px-4 sm:px-6 max-w-3xl mx-auto reveal" ref={useScrollReveal<HTMLElement>()}>
+    <section id="testimonials" className="my-16 px-4 sm:px-6 max-w-3xl mx-auto reveal section-shell p-6 sm:p-8 md:p-10" ref={useScrollReveal<HTMLElement>()}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
-        <h2 className="text-2xl sm:text-3xl font-semibold">Testimonials & Advice</h2>
+        <h2 className="section-title text-2xl sm:text-3xl font-semibold">Testimonials & Advice</h2>
         <div>
           {isAdmin ? (
             <button 
@@ -214,13 +214,13 @@ export default function Testimonials() {
           value={name}
           onChange={e => setName(e.target.value)}
           placeholder="Your name (optional)"
-          className="w-full rounded-lg border px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 focus:ring-2 focus:ring-primary/20 transition-all"
         />
         <textarea
           value={message}
           onChange={e => setMessage(e.target.value)}
           placeholder="Share advice, feedback or a short testimonial"
-          className="w-full rounded-lg border px-4 py-3 h-24 resize-none focus:ring-2 focus:ring-primary/20 transition-all"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 h-24 resize-none focus:ring-2 focus:ring-primary/20 transition-all"
         />
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <label className="text-sm font-medium">Rating</label>
@@ -249,19 +249,19 @@ export default function Testimonials() {
       </form>
 
       <div className="space-y-6">
-        {items.length === 0 && <p className="text-sm text-slate-600 text-center py-8">No testimonials yet — be the first!</p>}
+        {items.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No testimonials yet — be the first!</p>}
         {items.map(it => (
-          <div key={it.id} className="border rounded-xl p-4 sm:p-6 shadow-sm bg-white card-hover reveal" ref={useScrollReveal<HTMLDivElement>()}>
+          <div key={it.id} className="modern-card p-4 sm:p-6 card-hover reveal" ref={useScrollReveal<HTMLDivElement>()}>
             <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-4 gap-3">
               <div className="flex-1">
                 <div className="text-sm font-semibold mb-2">{it.name || "Anonymous"}</div>
-                <div className="text-xs text-slate-500">{new Date(it.createdAt).toLocaleString()}</div>
+                <div className="text-xs text-muted-foreground">{new Date(it.createdAt).toLocaleString()}</div>
               </div>
               <div className="flex items-center gap-3">
                 {renderStars(it.rating ?? null)}
-                <button 
+                  <button 
                   onClick={() => setReplyOpen(prev => ({ ...prev, [it.id]: !prev[it.id] }))} 
-                  className="text-sm text-slate-600 hover:text-primary font-medium btn-interactive px-2 py-1 rounded"
+                    className="text-sm text-muted-foreground hover:text-primary font-medium btn-interactive px-2 py-1 rounded"
                 >
                   Reply
                 </button>
@@ -282,8 +282,8 @@ export default function Testimonials() {
             {it.replies && it.replies.length > 0 && (
               <div className="mt-3 space-y-2">
                 {it.replies.map(r => (
-                  <div key={r.id} className="border-l-2 border-slate-100 pl-3 text-sm">
-                    <div className="text-xs font-medium">{r.name} <span className="text-slate-400">• {new Date(r.createdAt).toLocaleString()}</span></div>
+                  <div key={r.id} className="border-l-2 border-border pl-3 text-sm">
+                    <div className="text-xs font-medium">{r.name} <span className="text-muted-foreground">• {new Date(r.createdAt).toLocaleString()}</span></div>
                     <div className="text-sm">{r.message}</div>
                   </div>
                 ))}
@@ -291,11 +291,11 @@ export default function Testimonials() {
             )}
 
             {replyOpen[it.id] && (
-              <div className="mt-4 p-4 bg-slate-50 rounded-lg">
+              <div className="mt-4 p-4 bg-muted/60 rounded-lg">
                 <textarea 
                   value={replyText[it.id] || ""} 
                   onChange={e => setReplyText(prev => ({ ...prev, [it.id]: e.target.value }))} 
-                  className="w-full rounded-lg border px-4 py-3 h-20 mb-3 resize-none focus:ring-2 focus:ring-primary/20" 
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 h-20 mb-3 resize-none focus:ring-2 focus:ring-primary/20" 
                   placeholder="Write a reply" 
                 />
                 <div className="flex gap-3">
@@ -309,7 +309,7 @@ export default function Testimonials() {
                   </button>
                   <button 
                     onClick={() => setReplyOpen(prev => ({ ...prev, [it.id]: false }))} 
-                    className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium hover:bg-slate-50 transition-colors"
+                    className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium hover:bg-muted transition-colors"
                   >
                     Cancel
                   </button>

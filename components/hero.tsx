@@ -13,9 +13,9 @@ export default function Hero() {
       <div className="hero-orb orb-primary" />
       <div className="hero-orb orb-accent" />
 
-      <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
+      <div className="max-w-4xl mx-auto text-center relative z-10 w-full section-shell px-6 py-12 sm:px-10 sm:py-14">
         <div className="mb-8 inline-block" data-animate="card">
-          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift shadow-[0_0_40px_rgba(44,44,44,0.3)] overflow-hidden p-1">
+          <div className="w-28 h-28 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center hover-lift shadow-[0_0_40px_rgba(31,41,55,0.24)] overflow-hidden p-1">
             <Image 
               src="/logo.jpeg" 
               alt="Logo" 
@@ -42,13 +42,13 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center" data-animate="card">
           <button
             onClick={() => router.push("/work")}
-            className="px-8 py-4 rounded-full font-semibold hover-lift btn-dark"
+            className="px-8 py-4 rounded-full font-semibold hover-lift btn-dark shadow-lg"
           >
             View design & video work
           </button>
           <Link
             href="#contact"
-            className="px-8 py-4 rounded-full font-semibold hover-lift bg-card border border-border text-foreground inline-flex justify-center"
+            className="px-8 py-4 rounded-full font-semibold hover-lift bg-card border border-border text-foreground inline-flex justify-center hover:bg-muted"
           >
             Book a project call
           </Link>
