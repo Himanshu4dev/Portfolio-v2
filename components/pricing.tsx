@@ -24,25 +24,25 @@ export default function Pricing() {
               One-time investment for a complete design + development + editing execution system.
             </p>
           </div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 bg-card/80">
+          <div className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-4 py-2 bg-card/80">
             <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Limited Slots</span>
             <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
           </div>
         </div>
 
-        <article data-animate="card" className="modern-card p-6 sm:p-8 md:p-10 ue-spotlight card-hover">
-          <div className="grid md:grid-cols-2 gap-8 items-start">
+        <article data-animate="card" className="modern-card p-5 sm:p-8 md:p-10 ue-spotlight card-hover">
+          <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-start">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-primary/90 mb-2">Lifetime Access</p>
               <h3 className="text-2xl sm:text-3xl font-black font-display mb-3">Ultimate Creative System</h3>
               <p className="text-muted-foreground mb-6">
                 Designed for founders, creators, and brands that want premium UI and video assets without agency bloat.
               </p>
-              <div className="flex items-end gap-2 mb-6">
-                <span className="text-4xl sm:text-5xl font-black">$497</span>
+              <div className="flex flex-wrap items-end gap-2 mb-6">
+                <span className="text-3xl sm:text-5xl font-black">$497</span>
                 <span className="text-sm text-muted-foreground pb-1">one-time</span>
               </div>
-              <Link href="#contact" className="inline-flex items-center justify-center px-7 py-3 rounded-full btn-dark font-semibold">
+              <Link href="#contact" className="inline-flex w-full sm:w-auto items-center justify-center px-7 py-3 rounded-full btn-dark font-semibold">
                 Get Access
               </Link>
             </div>

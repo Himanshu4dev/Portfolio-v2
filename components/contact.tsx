@@ -39,7 +39,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6">
+    <section id="contact" className="py-14 sm:py-20 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto section-shell p-6 sm:p-8 md:p-10">
         <h2
           data-animate="heading"

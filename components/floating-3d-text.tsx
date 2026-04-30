@@ -41,7 +41,7 @@ export default function Floating3DText() {
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full min-h-96 flex items-center justify-center perspective"
+      className="relative w-full h-full min-h-[14rem] sm:min-h-[16rem] md:min-h-96 flex items-center justify-center perspective"
     >
       <div
         ref={textRef}
@@ -52,16 +52,16 @@ export default function Floating3DText() {
         }}
         className="text-center"
       >
-        <h1 className="text-6xl md:text-7xl lg:text-8xl font-black font-display mb-6 leading-tight tracking-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black font-display mb-5 sm:mb-6 leading-tight tracking-tight">
           <span 
             className="block text-chrome mb-2"
             style={{
-              background: "linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 25%, #6b6b6b 50%, #8a8a8a 75%, #a0a0a0 100%)",
+              background: "linear-gradient(135deg, #f8fafc 0%, #cbd5e1 30%, #93c5fd 65%, #c4b5fd 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              textShadow: "0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1)",
-              filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+              textShadow: "0 2px 12px rgba(37, 99, 235, 0.28), 0 2px 18px rgba(124, 58, 237, 0.2)",
+              filter: "drop-shadow(0 2px 10px rgba(37, 99, 235, 0.24))",
               position: "relative",
             }}
           >
@@ -70,12 +70,12 @@ export default function Floating3DText() {
           <span 
             className="block text-chrome font-black"
             style={{
-              background: "linear-gradient(135deg, #2c2c2c 0%, #4a4a4a 25%, #6b6b6b 50%, #8a8a8a 75%, #a0a0a0 100%)",
+              background: "linear-gradient(135deg, #f8fafc 0%, #cbd5e1 30%, #93c5fd 65%, #c4b5fd 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              textShadow: "0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1)",
-              filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))",
+              textShadow: "0 2px 12px rgba(37, 99, 235, 0.28), 0 2px 18px rgba(124, 58, 237, 0.2)",
+              filter: "drop-shadow(0 2px 10px rgba(37, 99, 235, 0.24))",
               position: "relative",
             }}
           >

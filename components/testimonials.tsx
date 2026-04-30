@@ -214,7 +214,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8" data-animate="card">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8" data-animate="card">
         {[
           { label: "Editors onboarded", value: "670+" },
           { label: "Avg rating", value: "4.9/5" },
@@ -228,9 +228,9 @@ export default function Testimonials() {
         ))}
       </div>
 
-      <div className="grid lg:grid-cols-[1fr_1.45fr] gap-6">
+      <div className="grid lg:grid-cols-[1fr_1.45fr] gap-5 sm:gap-6">
         <form onSubmit={handleSubmit} className="modern-card p-5 sm:p-6 space-y-4 ue-spotlight" data-animate="card">
-          <h3 className="text-xl font-semibold">Leave your testimonial</h3>
+          <h3 className="text-lg sm:text-xl font-semibold">Leave your testimonial</h3>
           <input
             value={name}
             onChange={e => setName(e.target.value)}
@@ -251,7 +251,7 @@ export default function Testimonials() {
                   key={i}
                   type="button"
                   onClick={() => setRating(i)}
-                  className={`text-3xl transition-all transform hover:scale-110 ${i <= (rating === "" ? 0 : Number(rating)) ? "text-yellow-400" : "text-slate-300"}`}
+                  className={`text-2xl sm:text-3xl transition-all transform hover:scale-110 ${i <= (rating === "" ? 0 : Number(rating)) ? "text-yellow-400" : "text-slate-300"}`}
                   aria-label={String(i)}
                 >
                   ★
