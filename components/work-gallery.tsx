@@ -113,10 +113,17 @@ export default function WorkGallery() {
 
   async function submitForm(e: React.FormEvent) {
     e.preventDefault()
+    const jsonHeaders: Record<string, string> = { "Content-Type": "application/json" }
+    if (adminToken) jsonHeaders["x-admin-token"] = adminToken
     try {
       if (editingId) {
         // update existing
-        const res = await fetch("/api/projects", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: editingId, ...form, token: adminToken }) })
+        const res = await fetch("/api/projects", {
+          method: "PATCH",
+          headers: jsonHeaders,
+          body: JSON.stringify({ id: editingId, ...form, token: adminToken }),
+          credentials: "include",
+        })
         if (res.ok) {
           const updated = await res.json()
           setItems(prev => prev.map(it => it.id === updated.id ? updated : it))
@@ -127,7 +134,12 @@ export default function WorkGallery() {
           alert(err?.error || "Failed to update")
         }
       } else {
-        const res = await fetch("/api/projects", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) })
+        const res = await fetch("/api/projects", {
+          method: "POST",
+          headers: jsonHeaders,
+          body: JSON.stringify({ ...form, token: adminToken || undefined }),
+          credentials: "include",
+        })
         if (res.ok) {
           const created = await res.json()
           setItems(prev => [created, ...prev])

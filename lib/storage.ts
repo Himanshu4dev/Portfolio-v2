@@ -1,7 +1,11 @@
 import fs from 'fs/promises'
 import path from 'path'
+import { tmpdir } from 'os'
 
-const DATA_DIR = path.join(process.cwd(), 'tmp')
+// Use OS temp dir on serverless (e.g. Vercel): only /tmp is writable; ./tmp under cwd is not.
+const DATA_DIR = process.env.PORTFOLIO_DATA_DIR
+  ? path.resolve(process.env.PORTFOLIO_DATA_DIR)
+  : path.join(tmpdir(), 'portfolio-v2-data')
 const TESTIMONIALS_FILE = path.join(DATA_DIR, 'testimonials.json')
 const PROJECTS_FILE = path.join(DATA_DIR, 'projects.json')
 
