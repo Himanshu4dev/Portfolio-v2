@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import LoadingSpinner from "@/components/ui/loading-spinner"
 
 type Project = {
@@ -48,6 +48,7 @@ function getDrivePreview(link: string) {
 export default function WorkGallery() {
   const [items, setItems] = useState<Project[]>([])
   const [loading, setLoading] = useState(false)
+  const [fetchError, setFetchError] = useState<string | null>(null)
   const [isAdmin, setIsAdmin] = useState(false)
   const [adminToken, setAdminToken] = useState("")
   const [form, setForm] = useState({ section: SECTIONS[0], title: "", description: "", link: "", thumbnail: "" })
@@ -62,13 +63,18 @@ export default function WorkGallery() {
     checkAdmin()
   }, [])
 
+  const closeFullscreen = useCallback(() => {
+    setFullScreenId(null)
+    setFullScreenUrl("")
+  }, [])
+
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") closeFullscreen()
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
-  }, [])
+  }, [closeFullscreen])
 
   function openFullscreen(it: Project) {
     let url = getDrivePreview(it.link)
@@ -81,20 +87,39 @@ export default function WorkGallery() {
     setPlaying(prev => ({ ...prev, [it.id]: true }))
   }
 
-  function closeFullscreen() {
-    setFullScreenId(null)
-    setFullScreenUrl("")
-  }
-
   async function fetchList() {
     setLoading(true)
+    setFetchError(null)
     try {
-      const res = await fetch("/api/projects")
-      if (!res.ok) return
-      const data = await res.json()
-      setItems(Array.isArray(data) ? data : [])
+      const res = await fetch("/api/projects", { credentials: "omit", cache: "no-store" })
+      const text = await res.text()
+      let parsed: unknown
+      try {
+        parsed = text ? JSON.parse(text) : []
+      } catch {
+        setFetchError("Invalid response from server. Try refreshing the page.")
+        setItems([])
+        return
+      }
+      if (!res.ok) {
+        const msg =
+          typeof parsed === "object" &&
+          parsed !== null &&
+          "error" in parsed &&
+          typeof (parsed as { error?: unknown }).error === "string"
+            ? (parsed as { error: string }).error
+            : `Could not load projects (${res.status}).`
+        setFetchError(msg)
+        setItems([])
+        return
+      }
+      setItems(Array.isArray(parsed) ? (parsed as Project[]) : [])
     } catch (e) {
       console.error(e)
+      setFetchError(
+        "Network error. If this is local dev on another device: open http://YOUR-PC-IP:3000 (not localhost), run pnpm dev:network, set NEXT_DEV_ALLOWED_ORIGINS to that IP in .env.local, restart."
+      )
+      setItems([])
     } finally {
       setLoading(false)
     }
@@ -304,6 +329,23 @@ export default function WorkGallery() {
           </div>
         )}
 
+        {fetchError && !loading && (
+          <div
+            role="alert"
+            className="mb-8 rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+          >
+            <p className="font-semibold mb-1">Could not load work items</p>
+            <p>{fetchError}</p>
+            <button
+              type="button"
+              onClick={() => fetchList()}
+              className="mt-3 rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-muted"
+            >
+              Retry
+            </button>
+          </div>
+        )}
+
         {/* Category sections - hide if no items in the selected category */}
         {visibleSections
           .filter((s) => (s === "All" ? true : items.some((it) => it.section === s)))
@@ -327,7 +369,7 @@ export default function WorkGallery() {
                             <div className="relative">
                               <div className="relative w-full h-40 sm:h-48 overflow-hidden">
                                 <img
-                                  src={it.thumbnail || "/placeholder.png"}
+                                  src={it.thumbnail || "/placeholder.svg"}
                                   alt={it.title}
                                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 />
