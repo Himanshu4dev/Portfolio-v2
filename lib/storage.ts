@@ -14,18 +14,45 @@ let IN_MEMORY_TESTIMONIALS: any[] | null = null
 let IN_MEMORY_PROJECTS: any[] | null = null
 const USE_IN_MEMORY = process.env.USE_IN_MEMORY_STORAGE === '1' || process.env.USE_IN_MEMORY_STORAGE === 'true'
 
+/** True when Upstash / Vercel Redis env vars are set (matches @vercel/kv requirements). */
+export function isKvConfigured(): boolean {
+  return Boolean(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN)
+}
+
+let warnedEphemeralOnVercel = false
+
+function warnEphemeralProjectsOnVercel() {
+  if (!process.env.VERCEL || isKvConfigured() || warnedEphemeralOnVercel) return
+  warnedEphemeralOnVercel = true
+  console.warn(
+    '[portfolio] Projects/testimonials are not persisted: no KV_REST_API_URL/KV_REST_API_TOKEN. ' +
+      'On Vercel, filesystem storage is ephemeral — entries disappear after redeploys or cold starts. ' +
+      'Add Upstash Redis from Vercel Marketplace → Storage → Redis and redeploy.'
+  )
+}
+
 async function getKVClient() {
-  // dynamic import so project doesn't hard-depend on @vercel/kv at runtime unless installed
-  if (!process.env.VERCEL_KV_URL) return null
+  if (!isKvConfigured()) return null
   try {
-    // @ts-ignore - optional dependency
-    const mod = await import('@vercel/kv').catch(() => null) as any
-    // `kv` export is the client
-    return (mod && mod.kv) || null
+    const mod = await import('@vercel/kv')
+    return mod.kv
   } catch (err) {
-    console.warn('Vercel KV client not available:', String(err))
+    console.warn('@vercel/kv unavailable:', String(err))
     return null
   }
+}
+
+function normalizeKvJsonArray(data: unknown): any[] {
+  if (Array.isArray(data)) return data
+  if (typeof data === 'string') {
+    try {
+      const parsed = JSON.parse(data)
+      return Array.isArray(parsed) ? parsed : []
+    } catch {
+      return []
+    }
+  }
+  return []
 }
 
 async function ensureFile(file: string) {
@@ -48,7 +75,7 @@ export async function readTestimonialsStorage() {
   if (kv) {
     try {
       const data = await kv.get('portfolio:testimonials')
-      return Array.isArray(data) ? data : []
+      return normalizeKvJsonArray(data).map((d: any) => ({ ...d, replies: d.replies || [] }))
     } catch (err) {
       console.warn('KV read testimonials failed:', String(err))
     }
@@ -84,6 +111,8 @@ export async function writeTestimonialsStorage(items: any[]) {
     return
   }
 
+  warnEphemeralProjectsOnVercel()
+
   try {
     await ensureFile(TESTIMONIALS_FILE)
     await fs.writeFile(TESTIMONIALS_FILE, JSON.stringify(items, null, 2), 'utf8')
@@ -105,7 +134,7 @@ export async function readProjectsStorage() {
   if (kv) {
     try {
       const data = await kv.get('portfolio:projects')
-      return Array.isArray(data) ? data : []
+      return normalizeKvJsonArray(data)
     } catch (err) {
       console.warn('KV read projects failed:', String(err))
     }
@@ -140,6 +169,8 @@ export async function writeProjectsStorage(items: any[]) {
     IN_MEMORY_PROJECTS = items
     return
   }
+
+  warnEphemeralProjectsOnVercel()
 
   try {
     await ensureFile(PROJECTS_FILE)

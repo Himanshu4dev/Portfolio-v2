@@ -1,6 +1,6 @@
 // Simple env checker for local/dev and CI
 const required = ['ADMIN_TOKEN']
-const optional = ['VERCEL_KV_URL', 'VERCEL_KV_TOKEN', 'USE_IN_MEMORY_STORAGE', 'SUPABASE_URL', 'SUPABASE_KEY']
+const optional = ['KV_REST_API_URL', 'KV_REST_API_TOKEN', 'USE_IN_MEMORY_STORAGE', 'SUPABASE_URL', 'SUPABASE_KEY']
 
 function check() {
   const missing = required.filter(k => !process.env[k])

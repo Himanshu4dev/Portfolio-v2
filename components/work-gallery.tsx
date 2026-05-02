@@ -25,22 +25,45 @@ const SECTIONS = [
   "Web Development",
 ]
 
+/** Pull file id from common Drive “Share” / “Copy link” formats so visitors get /preview (works in iframe when file is shared publicly). */
+function extractGoogleDriveFileId(raw: string): string | null {
+  let l = String(raw || "").trim().replace(/^["']|["']$/g, "")
+  if (!l) return null
+
+  const fileInPath = l.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/i)
+  if (fileInPath?.[1]) return fileInPath[1]
+
+  try {
+    const href = l.includes("://") ? l : `https://${l}`
+    const url = new URL(href)
+    const host = url.hostname.replace(/^www\./i, "")
+    if (host === "drive.google.com" || host === "docs.google.com") {
+      const fromPath = url.pathname.match(/\/file\/d\/([a-zA-Z0-9_-]+)/i)
+      if (fromPath?.[1]) return fromPath[1]
+      const idParam = url.searchParams.get("id")
+      if (idParam && /^[a-zA-Z0-9_-]+$/.test(idParam) && idParam.length >= 10) return idParam
+    }
+  } catch {
+    /* ignore */
+  }
+
+  const loose = l.match(/(?:\/file\/d\/|[?&]id=)([a-zA-Z0-9_-]{10,})/i)
+  return loose?.[1] ?? null
+}
+
 function getDrivePreview(link: string) {
   try {
     const l = String(link || "").trim()
     // YouTube handling
     const yt = l.match(/(?:v=|\/embed\/|youtu\.be\/)([a-zA-Z0-9_-]{6,})/)
-    if (yt && yt[1]) return `https://www.youtube.com/embed/${yt[1]}?rel=0&modestbranding=1&autoplay=1`
+    if (yt?.[1]) return `https://www.youtube.com/embed/${yt[1]}?rel=0&modestbranding=1&autoplay=1`
 
-    // Attempt to extract Google Drive file id (supports several common patterns)
-    const m = l.match(/(?:\/file\/d\/|open\?id=|uc\?id=|\/d\/|id=)([a-zA-Z0-9_-]{7,})/)
-    if (m && m[1]) return `https://drive.google.com/file/d/${m[1]}/preview`
+    const driveId = extractGoogleDriveFileId(l)
+    if (driveId) return `https://drive.google.com/file/d/${driveId}/preview`
 
-    // fallback: if link already looks like a preview or an embeddable video
-    if (l.includes("drive.google.com") || l.includes("youtube.com") || l.includes("youtu.be")) return l
-    // otherwise, return as-is
+    if (/drive\.google\.com/i.test(l) || /youtube\.com|youtu\.be/i.test(l)) return l
     return l
-  } catch (e) {
+  } catch {
     return link
   }
 }
@@ -294,8 +317,11 @@ export default function WorkGallery() {
                 {SECTIONS.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
               <input value={form.title} onChange={e => setForm(prev => ({ ...prev, title: e.target.value }))} placeholder="Title" className="rounded border px-3 py-2" />
-              <input value={form.link} onChange={e => setForm(prev => ({ ...prev, link: e.target.value }))} placeholder="Google Drive link (required)" className="rounded border px-3 py-2" />
+              <input value={form.link} onChange={e => setForm(prev => ({ ...prev, link: e.target.value }))} placeholder="Paste Google Drive file share link" className="rounded border px-3 py-2" />
             </div>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              In Drive: Share → set access to Anyone with the link (Viewer), then paste that link. Use the video file link, not a folder link.
+            </p>
             <div className="mt-3 grid md:grid-cols-2 gap-3">
               <input value={form.thumbnail} onChange={e => setForm(prev => ({ ...prev, thumbnail: e.target.value }))} placeholder="Thumbnail URL (optional)" className="rounded border px-3 py-2" />
               <input value={form.description} onChange={e => setForm(prev => ({ ...prev, description: e.target.value }))} placeholder="Short description" className="rounded border px-3 py-2" />

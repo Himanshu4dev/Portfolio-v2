@@ -19,13 +19,13 @@ Vercel Deployment & Environment Setup
 **Required**
 - `ADMIN_TOKEN` — secret used for admin login
 
-**Optional but recommended**
-- `VERCEL_KV_URL` and `VERCEL_KV_TOKEN` — credentials for Vercel KV (recommended for production storage)
+**Strongly recommended on Vercel (persistent projects + testimonials)**
+- `KV_REST_API_URL` and `KV_REST_API_TOKEN` — added automatically when you connect **Redis (Upstash)** from Vercel Marketplace → Storage
 - `USE_IN_MEMORY_STORAGE` — set to `1` to use ephemeral in-memory storage (not persistent) for quick testing
 - `SUPABASE_URL` and `SUPABASE_KEY` — alternative option if you prefer Supabase
 
 **Notes**
-- If you enable Vercel KV, the app will automatically use it (no code changes required beyond installing `@vercel/kv` if running locally).
+- With Redis env vars set, the app uses `@vercel/kv` for durable JSON storage for projects and testimonials.
 - If the server filesystem is read-only (common in serverless), enable `USE_IN_MEMORY_STORAGE=1` for testing, but migrate to KV or Supabase for production.
 
 
@@ -37,14 +37,14 @@ Vercel Deployment & Environment Setup
   - PlanetScale / Neon
 - If you want, I can migrate the testimonials storage to Supabase or Vercel KV.
 
-## Vercel KV (recommended for small datasets)
+## Redis / Upstash (recommended for small datasets)
 
-Vercel KV is a simple managed key-value store that works well for testimonials/projects in this app. To enable it on Vercel:
+Redis via Upstash works well for testimonials/projects JSON in this app. To enable it on Vercel:
 
-1. Add the `@vercel/kv` package locally: `pnpm add @vercel/kv`.
-2. In the Vercel dashboard, create a KV instance and add the provided credentials as environment variables: `VERCEL_KV_URL` and `VERCEL_KV_TOKEN`.
-3. (Optional) For local development set `USE_IN_MEMORY_STORAGE=1` in `.env.local` to avoid writing to `tmp/`.
-4. Redeploy. The API automatically uses KV when `VERCEL_KV_URL` is present and falls back to `tmp/*.json` files or in-memory storage when configured.
+1. The repo includes `@vercel/kv` (wraps Upstash REST).
+2. Vercel dashboard → **Marketplace** → **Storage** → **Redis** → create/link store to this project. Vercel injects `KV_REST_API_URL` and `KV_REST_API_TOKEN`.
+3. (Optional) For local development set `USE_IN_MEMORY_STORAGE=1` in `.env.local`, or copy the same Redis env vars into `.env.local`.
+4. Redeploy. The API uses Redis when both env vars are set; otherwise it falls back to ephemeral disk under `/tmp` or in-memory storage.
 
 If you'd like, I can finish the setup and deploy it to your Vercel project — I will need access to set the Vercel env vars (or you can set them and tell me when done).
 
